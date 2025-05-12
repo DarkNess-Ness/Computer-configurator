@@ -95,6 +95,24 @@
                 text-decoration: underline;
             }
 
+            .login-footer {
+                margin-top: 20px;
+                font-size: 14px;
+                color: #C5C6C7;
+                white-space: nowrap;
+                text-align: center;
+            }
+
+            .register-link {
+                color: #66FCF1;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+            .register-link:hover {
+                text-decoration: underline;
+            }
+
             .notification {
                 display: none;
                 margin-top: 20px;
@@ -120,7 +138,11 @@
                 <input type="text" id="username" placeholder="Логин" required />
                 <input type="password" id="password" placeholder="Пароль" required />
                 <button type="submit">ВХОД</button>
-                <a href="#">Нет аккаунта? Зарегистрироваться</a>
+
+                <div class="login-footer">
+                    <span>Нет аккаунта?&nbsp;</span><a href="register.html" class="register-link">Зарегистрироваться</a>
+                </div>
+    
                 <div class="notification" id="errorBox">Неверный логин или пароль!</div>
             </form>
         </div>
