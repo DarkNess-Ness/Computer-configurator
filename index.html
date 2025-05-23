@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Собери свой ПК</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: #0B0C10;
+            color: #C5C6C7;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            border-bottom: 1px solid #45A29E;
+        }
+
+        .logo {
+            width: 75px;
+            height: 75px;
+        }
+
+        .title {
+            font-size: 64px;
+            color: #66FCF1;
+            text-shadow: 0 0 20px rgba(102, 252, 241, 0.64);
+            font-weight: 900;
+        }
+
+        .profile-btn {
+            background-color: #66FCF1;
+            color: #0B0C10;
+            border: none;
+            padding: 16px 40px; 
+            border-radius: 100px;
+            font-weight: 900;
+            font-size: 25px; 
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 140px; 
+            text-align: center;
+        }
+
+        .profile-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #66FCF1;
+        }
+
+        main {
+            padding: 50px;
+        }
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .category-card {
+            background-color: #1F2833;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 380px; 
+            width: 280px; 
+            margin: 0 auto;
+        }
+
+        
+        .icon-wrapper {
+            width: 244.95px;
+            height: 244.95px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .category-icon {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .category-name {
+            font-size: 32px;
+            color: #C5C6C7;
+            font-weight: 900;
+            margin-top: auto; 
+            padding: 0 10px;
+          
+        }
+       
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 350px;
+            margin-top: 50px; /* отступ от сетки категорий */
+        }
+
+        .action-btn {
+            background-color: #66FCF1;
+            color: #0B0C10;
+            border: none;
+            padding: 20px 60px; 
+            border-radius: 100px;
+            font-weight: 900; 
+            font-size: 35px; 
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 420px; 
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #66FCF1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="Логотип" class="logo">
+        <h1 class="title">Собери свой ПК</h1>
+        <button id="profileBtn" class="profile-btn">Профиль</button>
+    </header>
+
+    <main>
+        <div class="categories-grid">
+            <!-- Процессор -->
+
+            <div class="category-card" data-target="cpu.html">
+                <div class="icon-wrapper">
+                    <img src="images/CPU.png" alt="Процессор" class="category-icon">
+                </div>
+                
+                <h2 class="category-name">Процессор</h2>
+            </div>
+
+            <!-- Материнская плата -->
+            <div class="category-card" data-target="motherboard.html">
+                <div class="icon-wrapper">
+                    <img src="images/motherboard.png" alt="Материнская плата" class="category-icon">
+                </div>
+                
+                <h2 class="category-name">Материнская плата</h2>
+            </div>
+
+            <!-- Видеокарта -->
+            <div class="category-card" data-target="videocard.html">
+                <div class="icon-wrapper">
+                    <img src="images/пзг.png" alt="Видеокарта" class="category-icon">
+                </div>
+               
+                <h2 class="category-name">Видеокарта</h2>
+            </div>
+
+            <!-- Оперативная память -->
+            <div class="category-card" data-target="ram.html">
+                <div class="icon-wrapper">
+                    <img src="images/ram.png" alt="Оперативная память" class="category-icon">
+                </div>
+                
+                <h2 class="category-name">Оперативная память</h2>
+            </div>
+
+            <!-- Блок питания -->
+            <div class="category-card" data-target="block.html">
+                <div class="icon-wrapper">
+                    <img src="images/power cupply.png" alt="Блок питания" class="category-icon">
+                </div>
+               
+                <h2 class="category-name">Блок питания</h2>
+            </div>
+
+            <!-- Охлаждение процессора -->
+            <div class="category-card" data-target="cooler.html">
+                <div class="icon-wrapper">
+                    <img src="images/куллер.png" alt="Охлаждение процессора" class="category-icon">
+                </div>
+                
+                <h2 class="category-name">Охлаждение процессора</h2>
+            </div>
+
+            <!-- Накопители -->
+            <div class="category-card" data-target="sd.html">
+                <div class="icon-wrapper">
+                    <img src="images/жесткий диск.png" alt="Накопители" class="category-icon">
+                </div>
+                
+                <h2 class="category-name">Накопители</h2>
+            </div>
+
+            <!-- Корпус -->
+            <div class="category-card" data-target="corpus.html">
+                <div class="icon-wrapper">
+                    <img src="images/корпус.png" alt="Корпус" class="category-icon">
+                </div>
+               
+                <h2 class="category-name">Корпус</h2>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button id ="buildBtn" class="action-btn">Собрать</button>
+            <button id="breakBtn" class="action-btn">Сброс</button>
+        </div>
+    </main>
+    <script>
+        //обработчик нажатия на выбранную категорию
+        document.querySelectorAll('.category-card').forEach(card => {        
+            card.addEventListener('click', function () {
+                const targetPage = this.getAttribute('data-target');
+                if (targetPage) {
+                    window.location.href = targetPage;
+                }
+            });
+        });
+        //обработчик нажатия на профиль
+        document.getElementById('profileBtn').addEventListener('click', function () {
+            window.location.href = 'profile.html';
+        });
+        //обработчик нажатия на Сохранить
+        document.getElementById('buildBtn').addEventListener('click', function () {
+            // вот тут по идее сохранение сборки в localStorage
+            alert('Сборка сохранена');
+            
+        });
+        document.getElementById('breakBtn').addEventListener('click', () => {
+            if (confirm('Сбросить текущий выбор компонентов?')) {
+                localStorage.removeItem("selectedComponents");
+                alert('Выбор сброшен!');
+                displaySelectedComponents(); 
+            }
+        });
+
+
+    </script>
+</body>
+</html>
