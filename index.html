@@ -25,7 +25,11 @@
             padding: 20px 50px;
             border-bottom: 1px solid #45A29E;
         }
-
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
         .logo {
             width: 75px;
             height: 75px;
@@ -36,8 +40,14 @@
             color: #66FCF1;
             text-shadow: 0 0 20px rgba(102, 252, 241, 0.64);
             font-weight: 900;
+            text-align: center;
         }
-
+        .site-title {
+            font-size: 40px;
+            font-weight: 900;
+            color: #66FCF1;
+            text-shadow: 0 4px 20px rgba(102, 252, 241, 0.64);
+        }
         .profile-btn {
             background-color: #66FCF1;
             color: #0B0C10;
@@ -98,7 +108,7 @@
             max-height: 100%;
             object-fit: contain;
         }
-
+        
         .category-name {
             font-size: 32px;
             color: #C5C6C7;
@@ -143,13 +153,16 @@
     </style>
 </head>
 <body>
+    
     <header>
-        <img src="images/logo.png" alt="Логотип" class="logo">
-        <h1 class="title">Собери свой ПК</h1>
+        <div class="header-left">
+            <img src="images/logo.png" class="logo" alt="Логотип">
+            <span class="site-title">ЖЕЛЕЗНЫЙ ТЮНЕР</span>
+        </div>
         <button id="profileBtn" class="profile-btn">Профиль</button>
     </header>
-
     <main>
+        <h1 class="title">Собери свой ПК</h1>
         <div class="categories-grid">
             <!-- Процессор -->
 
@@ -157,7 +170,7 @@
                 <div class="icon-wrapper">
                     <img src="images/CPU.png" alt="Процессор" class="category-icon">
                 </div>
-                
+
                 <h2 class="category-name">Процессор</h2>
             </div>
 
@@ -166,7 +179,7 @@
                 <div class="icon-wrapper">
                     <img src="images/motherboard.png" alt="Материнская плата" class="category-icon">
                 </div>
-                
+
                 <h2 class="category-name">Материнская плата</h2>
             </div>
 
@@ -175,7 +188,7 @@
                 <div class="icon-wrapper">
                     <img src="images/пзг.png" alt="Видеокарта" class="category-icon">
                 </div>
-               
+
                 <h2 class="category-name">Видеокарта</h2>
             </div>
 
@@ -184,7 +197,7 @@
                 <div class="icon-wrapper">
                     <img src="images/ram.png" alt="Оперативная память" class="category-icon">
                 </div>
-                
+
                 <h2 class="category-name">Оперативная память</h2>
             </div>
 
@@ -193,7 +206,7 @@
                 <div class="icon-wrapper">
                     <img src="images/power cupply.png" alt="Блок питания" class="category-icon">
                 </div>
-               
+
                 <h2 class="category-name">Блок питания</h2>
             </div>
 
@@ -202,7 +215,7 @@
                 <div class="icon-wrapper">
                     <img src="images/куллер.png" alt="Охлаждение процессора" class="category-icon">
                 </div>
-                
+
                 <h2 class="category-name">Охлаждение процессора</h2>
             </div>
 
@@ -211,7 +224,7 @@
                 <div class="icon-wrapper">
                     <img src="images/жесткий диск.png" alt="Накопители" class="category-icon">
                 </div>
-                
+
                 <h2 class="category-name">Накопители</h2>
             </div>
 
@@ -220,19 +233,19 @@
                 <div class="icon-wrapper">
                     <img src="images/корпус.png" alt="Корпус" class="category-icon">
                 </div>
-               
+
                 <h2 class="category-name">Корпус</h2>
             </div>
         </div>
 
         <div class="action-buttons">
-            <button id ="buildBtn" class="action-btn">Собрать</button>
+            <button id="buildBtn" class="action-btn">Собрать</button>
             <button id="breakBtn" class="action-btn">Сброс</button>
         </div>
     </main>
     <script>
         //обработчик нажатия на выбранную категорию
-        document.querySelectorAll('.category-card').forEach(card => {        
+        document.querySelectorAll('.category-card').forEach(card => {
             card.addEventListener('click', function () {
                 const targetPage = this.getAttribute('data-target');
                 if (targetPage) {
@@ -248,13 +261,13 @@
         document.getElementById('buildBtn').addEventListener('click', function () {
             // вот тут по идее сохранение сборки в localStorage
             alert('Сборка сохранена');
-            
+
         });
         document.getElementById('breakBtn').addEventListener('click', () => {
             if (confirm('Сбросить текущий выбор компонентов?')) {
                 localStorage.removeItem("selectedComponents");
                 alert('Выбор сброшен!');
-                displaySelectedComponents(); 
+                displaySelectedComponents();
             }
         });
 
