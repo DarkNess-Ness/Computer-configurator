@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Профиль</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+    body {
+      margin: 0;
+      background-color: #0B0C10;
+      color: #C5C6C7;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      border-bottom: 1px solid #45A29E;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      cursor: pointer;
+    }
+    .logo {
+      width: 75px;
+      height: 75px;
+    }
+    .site-title {
+      font-size: 40px;
+      font-weight: 900;
+      color: #66FCF1;
+      text-shadow: 0 4px 20px rgba(102, 252, 241, 0.64);
+    }
+    .profile-btn {
+      background-color: #45A29E;
+      color: #0B0C10;
+      padding: 16px 40px;
+      border-radius: 100px;
+      font-weight: 900;
+      font-size: 25px;
+      cursor: pointer;
+      border: none;
+      transition: box-shadow 0.3s ease;
+    }
+    .profile-btn:hover {
+      box-shadow: 0 0 12px 4px rgba(69, 162, 158, 0.8);
+    }
+    main {
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .avatar-block {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .avatar-wrapper {
+      position: relative;
+    }
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background-color: #1F2833;
+      border: 2px solid #66FCF1;
+      object-fit: cover;
+    }
+    .edit-avatar {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: #66FCF1;
+      color: #0B0C10;
+      border-radius: 50%;
+      border: none;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .edit-avatar input {
+      display: none;
+    }
+    .name-info h2 {
+      font-size: 28px;
+      font-weight: 900;
+      color: #66FCF1;
+      margin: 0;
+    }
+    .name-info p {
+      margin: 5px 0 0;
+      font-size: 14px;
+      color: #C5C6C7;
+    }
+    .fields {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 30px;
+      width: 100%;
+      max-width: 900px;
+    }
+    .column {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .column input {
+      padding: 15px;
+      border-radius: 16px;
+      border: none;
+      background: #C5C6C7;
+      color: #0B0C10;
+      font-size: 18px;
+    }
+    .column label {
+      font-size: 14px;
+      color: #C5C6C7;
+    }
+    .actions {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .actions button {
+      padding: 15px 30px;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      min-width: 180px;
+    }
+    .btn-blue {
+      background: #66FCF1;
+      color: #0B0C10;
+    }
+    .btn-red {
+      background: #FF4C4C;
+      color: #0B0C10;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-left" onclick="location.href='index.html'">
+      <img src="images/logo.png" class="logo" alt="Логотип">
+      <span class="site-title">ЖЕЛЕЗНЫЙ ТЮНЕР</span>
+    </div>
+    <button class="profile-btn">ПРОФИЛЬ</button>
+  </header>
+  <main>
+    <div class="avatar-block">
+      <div class="avatar-wrapper">
+        <img src="images/placeholder-people.png" alt="Аватар" class="avatar" id="avatar">
+        <label class="edit-avatar" title="Сменить фото">
+          <input type="file" accept="image/*" onchange="handleAvatarUpload(event)">
+        </label>
+      </div>
+      <div class="name-info">
+        <h2 id="userName">Загрузка...</h2>
+        <p id="regDate">Дата регистрации: —</p>
+      </div>
+    </div>
+    <div class="fields">
+      <div class="column">
+        <label>ИМЯ</label>
+        <input type="text" id="firstName" oninput="updateField('firstName', this.value)">
+        <label>ТЕЛЕФОН</label>
+        <input type="tel" id="phone" oninput="updateField('phone', this.value)">
+      </div>
+      <div class="column">
+        <label>ФАМИЛИЯ</label>
+        <input type="text" id="lastName" oninput="updateField('lastName', this.value)">
+        <label>ЭЛЕКТРОННАЯ ПОЧТА</label>
+        <input type="email" id="email" oninput="updateField('email', this.value)">
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn-blue" onclick="logout()">ВЫЙТИ</button>
+      <button class="btn-blue">СМЕНИТЬ ПАРОЛЬ</button>
+      <button class="btn-blue" onclick="location.href='builds.html'">СБОРКИ</button>
+      <button class="btn-red" onclick="confirmDelete()">УДАЛИТЬ ПРОФИЛЬ</button>
+    </div>
+  </main>
+  <script>
+    const username = localStorage.getItem("loggedInUser");
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    let user = users.find(u => u.username === username);
+
+    const nameEl = document.getElementById("userName");
+    const regEl = document.getElementById("regDate");
+    const avatar = document.getElementById("avatar");
+
+    if (!user) {
+      alert("Вы не авторизованы.");
+      location.href = "login.html";
+    }
+
+    function render() {
+      nameEl.textContent = user.firstName
+        ? user.firstName + " " + (user.lastName || "")
+        : user.username;
+      regEl.textContent = "Дата регистрации: " + (user.registered || "—");
+
+      document.getElementById("firstName").value = user.firstName || "";
+      document.getElementById("lastName").value = user.lastName || "";
+      document.getElementById("phone").value = user.phone || "";
+      document.getElementById("email").value = user.email || "";
+      avatar.src = user.avatar || "images/placeholder-people.png";
+    }
+
+    function updateField(field, value) {
+      user[field] = value;
+      nameEl.textContent = user.firstName
+        ? user.firstName + " " + (user.lastName || "")
+        : user.username;
+      save();
+    }
+
+    function handleAvatarUpload(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        user.avatar = reader.result;
+        avatar.src = reader.result;
+        save();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function save() {
+      const updatedUsers = users.map(u => u.username === user.username ? user : u);
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+    }
+
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      location.href = "login.html";
+    }
+
+    function confirmDelete() {
+      if (confirm("Удалить профиль?")) {
+        const filtered = users.filter(u => u.username !== user.username);
+        localStorage.setItem("users", JSON.stringify(filtered));
+        localStorage.removeItem("loggedInUser");
+        location.href = "login.html";
+      }
+    }
+
+    render();
+  </script>
+</body>
+</html>
