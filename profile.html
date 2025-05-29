@@ -6,12 +6,12 @@
   <title>Профиль</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
   <style>
-    * {
+    * {margin: 0;
+      padding: 0;
       box-sizing: border-box;
       font-family: 'Montserrat', sans-serif;
     }
     body {
-      margin: 0;
       background-color: #0B0C10;
       color: #C5C6C7;
     }
@@ -36,7 +36,7 @@
       font-size: 40px;
       font-weight: 900;
       color: #66FCF1;
-      text-shadow: 0 4px 20px rgba(102, 252, 241, 0.64);
+      text-shadow: 0 0 20px rgba(102, 252, 241, 0.64);
     }
     .profile-btn {
       background-color: #45A29E;
@@ -55,8 +55,11 @@
     main {
       padding: 50px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      justify-content: center;
+    }
+    .profile-wrapper {
+      width: 100%;
+      max-width: 1000px;
     }
     .avatar-block {
       display: flex;
@@ -104,16 +107,22 @@
     }
     .fields {
       display: flex;
-      gap: 30px;
+      gap: 20px;
       margin-bottom: 30px;
       width: 100%;
-      max-width: 900px;
+      flex-wrap: wrap;
+      justify-content: space-between;
     }
     .column {
       flex: 1;
       display: flex;
       flex-direction: column;
       gap: 20px;
+    }
+    .column label {
+      margin-bottom: 4px;
+      font-size: 14px;
+      color: #C5C6C7;
     }
     .column input {
       padding: 15px;
@@ -123,24 +132,21 @@
       color: #0B0C10;
       font-size: 18px;
     }
-    .column label {
-      font-size: 14px;
-      color: #C5C6C7;
-    }
     .actions {
       display: flex;
-      gap: 30px;
+      gap: 20px;
       flex-wrap: wrap;
-      justify-content: center;
+      width: 100%;
+      justify-content: space-between;
     }
     .actions button {
-      padding: 15px 30px;
+      padding: 15px 25px;
       font-size: 20px;
       font-weight: bold;
       border-radius: 100px;
       border: none;
       cursor: pointer;
-      min-width: 180px;
+      min-width: 200px;
     }
     .btn-blue {
       background: #66FCF1;
@@ -150,6 +156,110 @@
       background: #FF4C4C;
       color: #0B0C10;
     }
+    .modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+.modal-content {
+  background: #1F2833;
+  padding: 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(102, 252, 241, 0.3);
+  position: relative;
+}
+.modal-content h2 {
+  color: #66FCF1;
+  font-size: 25px;
+  font-weight: 900;
+  margin-bottom: 25px;
+  text-shadow: 0 4px 20px rgba(102, 252, 241, 0.64);
+  margin-top: 20px;
+}
+.modal-content p {
+  font-size: 11px;
+  color: #C5C6C7;
+  margin-bottom: 20px;
+}
+.modal-content input {
+  justify-content: center; 
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  border: none;
+  background: #C5C6C7;
+  color: #0B0C10;
+  font-size: 16px;
+  box-shadow: 0 0 5px rgba(197, 198, 199, 0.8);
+  margin-top:20px;
+}
+.modal-content button {
+  background: #66FCF1;
+  color: #0B0C10;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 100px;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+  margin: 20px;
+  box-shadow: 0 0 10px #66FCF1;
+  transition: box-shadow 0.3s ease;
+}
+.modal-content button:hover {
+  box-shadow: 0 0 20px currentColor;
+}
+.btn-delete-confirm {
+  background: #FF4C4C !important;
+  color: #0B0C10;
+  margin-right: 12px;
+  box-shadow: 0 0 12px rgba(231, 76, 60, 0.6); 
+}
+.btn-cancel {
+  background: #C5C6C7;
+  color: #0B0C10;
+  box-shadow: 0 0 12px rgba(102, 252, 241, 0.6);
+}
+.btn-confirm:hover {
+   box-shadow: 0 0 20px rgba(231, 76, 60, 1);
+}
+
+.btn-cancel:hover {
+  box-shadow: 0 0 20px rgba(197, 198, 199, 1);
+}
+.modal-close {
+  position: absolute;
+  top: -25px;
+  right: -35px;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none;
+  appearance: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: #66FCF1 !important;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+.modal-close:hover {
+  color: #45A29E;
+  box-shadow: 0 0 20px rgba(197, 198, 199, 1);
+}
+
+
   </style>
 </head>
 <body>
@@ -161,37 +271,40 @@
     <button class="profile-btn">ПРОФИЛЬ</button>
   </header>
   <main>
-    <div class="avatar-block">
-      <div class="avatar-wrapper">
-        <img src="images/placeholder-people.png" alt="Аватар" class="avatar" id="avatar">
-        <label class="edit-avatar" title="Сменить фото">
-          <input type="file" accept="image/*" onchange="handleAvatarUpload(event)">
-        </label>
+    <div class="profile-wrapper">
+      <div class="avatar-block">
+        <div class="avatar-wrapper">
+          <img src="images/placeholder-people.png" alt="Аватар" class="avatar" id="avatar">
+          <label class="edit-avatar" title="Сменить фото">
+            ✏️
+            <input type="file" accept="image/*" onchange="handleAvatarUpload(event)">
+          </label>
+        </div>
+        <div class="name-info">
+          <h2 id="userName">Загрузка...</h2>
+          <p id="regDate">Дата регистрации: —</p>
+        </div>
       </div>
-      <div class="name-info">
-        <h2 id="userName">Загрузка...</h2>
-        <p id="regDate">Дата регистрации: —</p>
+      <div class="fields">
+        <div class="column">
+          <label for="firstName">ИМЯ</label>
+          <input type="text" id="firstName" oninput="updateField('firstName', this.value)">
+          <label for="phone">ТЕЛЕФОН</label>
+          <input type="tel" id="phone" oninput="updateField('phone', this.value)">
+        </div>
+        <div class="column">
+          <label for="lastName">ФАМИЛИЯ</label>
+          <input type="text" id="lastName" oninput="updateField('lastName', this.value)">
+          <label for="email">ЭЛЕКТРОННАЯ ПОЧТА</label>
+          <input type="email" id="email" oninput="updateField('email', this.value)">
+        </div>
       </div>
-    </div>
-    <div class="fields">
-      <div class="column">
-        <label>ИМЯ</label>
-        <input type="text" id="firstName" oninput="updateField('firstName', this.value)">
-        <label>ТЕЛЕФОН</label>
-        <input type="tel" id="phone" oninput="updateField('phone', this.value)">
+      <div class="actions">
+        <button class="btn-blue" onclick="logout()">ВЫЙТИ</button>
+        <button class="btn-blue" onclick="showPasswordModal()">СМЕНИТЬ ПАРОЛЬ</button>
+        <button class="btn-blue" onclick="location.href='builds.html'">СБОРКИ</button>
+        <button class="btn-red" onclick="showDeleteModal()">УДАЛИТЬ ПРОФИЛЬ</button>
       </div>
-      <div class="column">
-        <label>ФАМИЛИЯ</label>
-        <input type="text" id="lastName" oninput="updateField('lastName', this.value)">
-        <label>ЭЛЕКТРОННАЯ ПОЧТА</label>
-        <input type="email" id="email" oninput="updateField('email', this.value)">
-      </div>
-    </div>
-    <div class="actions">
-      <button class="btn-blue" onclick="logout()">ВЫЙТИ</button>
-      <button class="btn-blue">СМЕНИТЬ ПАРОЛЬ</button>
-      <button class="btn-blue" onclick="location.href='builds.html'">СБОРКИ</button>
-      <button class="btn-red" onclick="confirmDelete()">УДАЛИТЬ ПРОФИЛЬ</button>
     </div>
   </main>
   <script>
@@ -258,8 +371,60 @@
         location.href = "login.html";
       }
     }
+    function showPasswordModal() {
+  document.getElementById("passwordModal").style.display = "flex";
+}
+function changePassword() {
+  const newPass = document.getElementById("newPass").value;
+  const repeatPass = document.getElementById("repeatPass").value;
+  if (!newPass || !repeatPass) return alert("Заполните оба поля");
+  if (newPass !== repeatPass) return alert("Пароли не совпадают");
+  user.password = newPass;
+  save();
+  alert("Пароль изменён!");
+  document.getElementById("passwordModal").style.display = "none";
+  document.getElementById("newPass").value = "";
+  document.getElementById("repeatPass").value = "";
+}
+
+function showDeleteModal() {
+  document.getElementById("deleteModal").style.display = "flex";
+}
+function closeDeleteModal() {
+  document.getElementById("deleteModal").style.display = "none";
+}
+function deleteProfile() {
+  const filtered = users.filter(u => u.username !== user.username);
+  localStorage.setItem("users", JSON.stringify(filtered));
+  localStorage.removeItem("loggedInUser");
+  location.href = "login.html";
+}
+function closePasswordModal() {
+  document.getElementById("passwordModal").style.display = "none";
+}
 
     render();
   </script>
+<div class="modal" id="passwordModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closePasswordModal()">&times;</button>
+    <h2>Придумайте новый пароль</h2>
+    <input type="password" id="newPass" placeholder="Новый пароль">
+    <input type="password" id="repeatPass" placeholder="Подтверждение">
+    <button onclick="changePassword()">СОХРАНИТЬ</button>
+  </div>
+</div>
+
+<div class="modal" id="deleteModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeDeleteModal()">&times;</button>
+    <h2>Вы действительно хотите удалить профиль?</h2>
+    <p>ЭТИ ДЕЙСТВИЯ ПРИВЕДУТ К НЕОБРАТИМЫМ ПОСЛЕДСТВИЯМ</p>
+    <button class="btn-cancel" onclick="closeDeleteModal()">Нет</button>
+    <button class="btn-delete-confirm" onclick="deleteProfile()">Да</button>
+  </div>
+</div>
+
+
 </body>
 </html>
