@@ -1,0 +1,345 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Процессор</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: #0B0C10;
+            color: #C5C6C7;
+        }
+
+        /* Шапка */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            border-bottom: 1px solid #45A29E;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 75px;
+            height: 75px;
+        }
+
+        .title {
+            font-size: 64px;
+            color: #66FCF1;
+            text-shadow: 0 0 20px rgba(102, 252, 241, 0.64);
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .site-title {
+            font-size: 40px;
+            font-weight: 900;
+            color: #66FCF1;
+            text-shadow: 0 4px 20px rgba(102, 252, 241, 0.64);
+        }
+
+        .profile-btn {
+            background-color: #66FCF1;
+            color: #0B0C10;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 100px;
+            font-weight: 900;
+            font-size: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 140px;
+            text-align: center;
+        }
+
+            .profile-btn:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 15px #66FCF1;
+            }
+
+        /* Основной контент */
+        main {
+            padding: 50px;
+        }
+
+        /* Фильтры */
+        .filters-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tag {
+            background-color: #1F2833;
+            color: #C5C6C7;
+            border: 1px solid #45A29E;
+            border-radius: 15px;
+            padding: 5px 15px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+            .filter-tag:hover {
+                border-color: #66FCF1;
+                color: #66FCF1;
+            }
+
+            .filter-tag.active {
+                background-color: #66FCF1;
+                color: #0B0C10;
+                border-color: #66FCF1;
+            }
+
+        .filter-arrow {
+            font-size: 12px;
+        }
+
+        /* Список процессоров */
+        .cpu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .cpu-item {
+            background-color: #1F2833;
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 3px solid #66FCF1;
+        }
+
+        .cpu-name {
+            color: #66FCF1;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .cpu-specs {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #C5C6C7;
+        }
+
+        .spec-highlight {
+            color: white;
+            font-weight: 500;
+        }
+
+        .select-btn {
+            background-color: #66FCF1;
+            color: #0B0C10;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 10px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <img src="images/logo.png" class="logo" alt="Логотип">
+            <span class="site-title">ЖЕЛЕЗНЫЙ ТЮНЕР</span>
+        </div>
+        <button id="profileBtn" class="profile-btn">Профиль</button>
+    </header>
+
+    <main>
+        <h1 class="title">Процессор</h1>
+
+        <!-- Фильтры -->
+        <div class="filters-row">
+            <div class="filter-tag active">
+                <span>ПРОИЗВОДИТЕЛЬ</span>
+                <span class="filter-arrow">▼</span>
+            </div>
+            <div class="filter-tag">
+                <span>СОККЕТ</span>
+                <span class="filter-arrow">▼</span>
+            </div>
+            <div class="filter-tag">
+                <span>СЕМЕЙСТВО</span>
+                <span class="filter-arrow">▼</span>
+            </div>
+            <div class="filter-tag">
+                <span>КОЛИЧЕСТВО ЯДЕР</span>
+                <span class="filter-arrow">▼</span>
+            </div>
+            <div class="filter-tag">
+                <span>ГРАФИЧЕСКОЕ ЯДРО</span>
+                <span class="filter-arrow">▼</span>
+            </div>
+            <div class="filter-tag">
+                <span>ТАКТОВАЯ ЧАСТОТА</span>
+                <span class="filter-arrow">▼</span>
+            </div>
+            <div class="filter-tag">
+                <span>ТЕПЛОВЫДЕЛЕНИЕ</span>
+                <span class="filter-arrow">▼</span>
+            </div>
+        </div>
+
+        <!-- Список процессоров -->
+        <div class="cpu-list">
+
+
+
+
+
+
+
+
+
+            <!--<div class="cpu-item">
+                <div class="cpu-name">Intel Core i5 12400F</div>
+                <div class="cpu-specs">
+                    <span class="spec-highlight">LGA1700</span>, 6.4×2 ГГц,
+                    L2 7.5 МБ, L3 18 МБ,
+                    DDR5-4000,
+                    <span class="spec-highlight">TDP 117 Вт</span>
+                </div>
+                <button class="select-btn">ВЫБРАТЬ</button>
+            </div>
+
+            <div class="cpu-item">
+                <div class="cpu-name">Intel Core Ultra 9 285K</div>
+                <div class="cpu-specs">
+                    <span class="spec-highlight">LGA Intel GP</span>, 3.7/17L ГГц,
+                    L2 40 МБ, L3 50 МБ,
+                    2×DDR5-5000,
+                    <span class="spec-highlight">TDP 550 Вт</span>
+                </div>
+                <button class="select-btn">ВЫБРАТЬ</button>
+            </div>
+
+            <div class="cpu-item">
+                <div class="cpu-name">AMD Ryzen 5 7500F</div>
+                <div class="cpu-specs">
+                    <span class="spec-highlight">AM5</span>, 6.4×2 ГГц,
+                    L2 6 МБ, L3 20 МБ,
+                    2×DDR5-3000,
+                    <span class="spec-highlight">TDP 65 Вт</span>
+                </div>
+                <button class="select-btn">ВЫБРАТЬ</button>
+            </div>
+
+            <div class="cpu-item">
+                <div class="cpu-name">AMD Ryzen 7 5700X</div>
+                <div class="cpu-specs">
+                    <span class="spec-highlight">AM5</span>, 6.4×2 ГГц,
+                    L2 4 МБ, L3 20 МБ,
+                    2×DDR5-3000,
+                    <span class="spec-highlight">TDP 65 Вт</span>
+                </div>
+                <button class="select-btn">ВЫБРАТЬ</button>
+            </div>-->
+        </div>
+    </main>
+
+    <script>
+
+   
+
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('cpu.json');
+                const processors = await response.json();
+
+                const container = document.getElementById('components-container');
+                container.innerHTML = ''; // Очищаем контейнер
+
+                processors.forEach(processor => {
+                    const card = document.createElement('div');
+                    card.className = 'cpu-item'; // Используем ваш класс стилей
+                    card.innerHTML = `
+                        <div class="cpu-name">${processor.name}</div>
+                        <div class="cpu-specs">
+                            <span class="spec-highlight">${processor.socket}</span>, 
+                            ${processor.base_clock}-${processor.boost_clock} ГГц,
+                            L2 ${processor.cache_l2}, L3 ${processor.cache_l3},
+                            ${processor.memory_type}-${processor.memory_speed},
+                            <span class="spec-highlight">TDP ${processor.tdp} Вт</span>
+                        </div>
+                        <button class="select-btn" data-id="${processor.id}">ВЫБРАТЬ</button>
+                    `;
+                    container.appendChild(card);
+                });
+
+                // Обработчики для кнопок выбора
+                document.querySelectorAll('.select-btn').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const cpuId = this.getAttribute('data-id');
+                        const selectedCpu = processors.find(p => p.id === cpuId);
+
+                        // Сохраняем выбранный процессор
+                        let selectedComponents = JSON.parse(localStorage.getItem('selectedComponents') || '[]');
+                        selectedComponents = selectedComponents.filter(c => c.category !== 'cpu');
+                        selectedComponents.push({
+                            ...selectedCpu,
+                            category: 'cpu'
+                        });
+
+                        localStorage.setItem('selectedComponents', JSON.stringify(selectedComponents));
+                        alert(`Процессор ${selectedCpu.name} выбран!`);
+                    });
+                });
+
+            } catch (error) {
+                console.error('Ошибка загрузки данных:', error);
+                document.getElementById('components-container').innerHTML =
+                    '<p style="color: #FF4C4C;">Ошибка загрузки данных о процессорах</p>';
+            }
+        });
+
+
+
+
+
+        //нажатие на профиль
+        document.getElementById('profileBtn').addEventListener('click', function () {
+            window.location.href = 'profile.html';
+        });
+        // Обработчики для фильтров
+        document.querySelectorAll('.filter-tag').forEach(tag => {
+            tag.addEventListener('click', function () {
+                this.classList.toggle('active');
+            });
+        });
+
+        // Обработчики для кнопок выбора
+        document.querySelectorAll('.select-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const cpuName = this.parentElement.querySelector('.cpu-name').textContent;
+                alert(`Выбран процессор: ${cpuName}`);
+                // Здесь будет логика сохранения выбора
+            });
+        });
+    </script>
+</body>
+</html>

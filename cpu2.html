@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Процессор</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: #0B0C10;
+            color: #C5C6C7;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            border-bottom: 1px solid #45A29E;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 75px;
+            height: 75px;
+        }
+
+        .title {
+            font-size: 64px;
+            color: #66FCF1;
+            text-shadow: 0 0 20px rgba(102, 252, 241, 0.64);
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .site-title {
+            font-size: 40px;
+            font-weight: 900;
+            color: #66FCF1;
+            text-shadow: 0 4px 20px rgba(102, 252, 241, 0.64);
+        }
+
+        .profile-btn {
+            background-color: #66FCF1;
+            color: #0B0C10;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 100px;
+            font-weight: 900;
+            font-size: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 140px;
+            text-align: center;
+        }
+
+            .profile-btn:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 15px #66FCF1;
+            }
+
+        main {
+            padding: 50px;
+        }
+
+       
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <img src="images/logo.png" class="logo" alt="Логотип">
+            <span class="site-title">ЖЕЛЕЗНЫЙ ТЮНЕР</span>
+        </div>
+        <button id="profileBtn" class="profile-btn">Профиль</button>
+    </header>
+    <main>
+        <h1 class="title">Процессор</h1>
+        
+
+    </main>
+    <script>
+        
+        
+        //обработчик нажатия на профиль
+        document.getElementById('profileBtn').addEventListener('click', function () {
+            window.location.href = 'profile.html';
+        });
+        
+
+
+
+    </script>
+</body>
+</html>
