@@ -162,32 +162,69 @@
 
 
 
-        /* Список процессоров */
-        /*.cpu-list {
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 колонки */
+            gap: 25px; /* Расстояние между карточками */
+            padding: 20px 0;
+        }
+
+        .component-card {
+            background: linear-gradient(135deg, #0B0C10 0%, #1F2833 100%);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid #45A29E;
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            align-items: center;
         }
 
-        .cpu-item {
-            background-color: #1F2833;
-            border-radius: 8px;
-            padding: 15px;
-            border-left: 3px solid #66FCF1;
+            .component-card:hover {
+                transform: scale(1.03);
+                box-shadow: 0 0 20px rgba(102, 252, 241, 0.3);
+                border-color: #66FCF1;
+            }
+
+        .component-image {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 15px;
         }
 
-        .cpu-name {
+        .component-name {
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .component-specs {
+            color: #C5C6C7;
+            font-size: 14px;
+            line-height: 1.6;
+            width: 100%;
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(69, 162, 158, 0.2);
+        }
+
+        .spec-name {
+            font-weight: 500;
+        }
+
+        .spec-value {
             color: #66FCF1;
             font-weight: 700;
-            margin-bottom: 8px;
-            font-size: 16px;
         }
 
-        .cpu-specs {
-            font-size: 14px;
-            line-height: 1.5;
-            color: #C5C6C7;
-        }*/
 
         .spec-highlight {
             color: white;
@@ -313,23 +350,119 @@
                 </div>
             </div>
 
-            <!-- Остальные фильтры аналогично -->
+           
         </div>
-
+        <div class="components-grid" id="componentsContainer">
+            <!-- Карточки будут вставлены сюда через JavaScript -->
+        </div>
 
 
         <!-- Список процессоров -->
-        <div class="cpu-list">
+        <!--<div class="cpu-list">
 
 
 
 
 
 
-        </div>
+        </div>-->
     </main>
 
     <script>
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('cpu.json')
+                .then(response => {
+                    if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Получены данные:', data);
+                    if (!data.processors || data.processors.length === 0) {
+                        throw new Error('Нет данных о процессорах');
+                    }
+                    displayComponents(data.processors); // Используем data.processors
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                    const container = document.getElementById('componentsContainer');
+                    container.innerHTML = `
+                <div style="grid-column: 1/-1; color: #FF4C4C; text-align: center; padding: 20px;">
+                    Ошибка: ${error.message}
+                </div>
+            `;
+                });
+
+            function displayComponents(processors) { // Переименовали параметр для ясности
+                const container = document.getElementById('componentsContainer');
+                container.innerHTML = '';
+
+                processors.forEach(processor => {
+                    const card = document.createElement('div');
+                    card.className = 'component-card';
+
+                    // Проверка изображения
+                    const imgSrc = processor.image || 'images/CPU.png';
+                    const img = new Image();
+                    img.onerror = function () {
+                        this.src = 'images/CPU.png';
+                    };
+                    img.src = imgSrc;
+                    img.className = 'component-image';
+                    img.alt = processor.name;
+
+                    card.innerHTML = `
+                <h3 class="component-name">${processor.name}</h3>
+                <div class="component-specs">
+                    <div class="spec-row">
+                        <span class="spec-name">Производитель:</span>
+                        <span class="spec-value">${processor.manufacturer}</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Сокет:</span>
+                        <span class="spec-value">${processor.socket}</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Ядер:</span>
+                        <span class="spec-value">${processor.cores}</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Частота:</span>
+                        <span class="spec-value">${processor.freq_clock} GHz</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">TDP:</span>
+                        <span class="spec-value">${processor.tdp} W</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Графика:</span>
+                        <span class="spec-value">${processor.igp === '+' ? 'Да' : 'Нет'}</span>
+                    </div>
+                </div>
+            `;
+                    card.prepend(img);
+                    container.appendChild(card);
+                });
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
    
         document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
@@ -377,6 +510,72 @@
                 // Здесь будет логика сохранения выбора
             });
         });
+
+
+       
+
+
+
+
+
+
+
+            //// Загрузка JSON
+            //fetch('cpu.json') // Укажите правильный путь к файлу
+            //    .then(response => response.json())
+            //    .then(data => {
+            //        displayComponents(data);
+            //    })
+            //    .catch(error => {
+            //        console.error('Ошибка загрузки данных:', error);
+            //    });
+
+            //// Функция отображения карточек
+            //function displayComponents(components) {
+            //    const container = document.getElementById('componentsContainer');
+
+            //    components.forEach(component => {
+            //        const card = document.createElement('div');
+            //        card.className = 'component-card';
+
+            //        card.innerHTML = `
+            //        <img src="${component.image}" alt="${component.name}" class="component-image">
+            //    <h3 class="component-name">${component.name}</h3>
+            //    <div class="component-specs">
+            //        <div class="spec-row">
+            //            <span class="spec-name">Производитель:</span>
+            //            <span class="spec-value">${component.manufacturer}</span>
+            //        </div>
+            //        <div class="spec-row">
+            //            <span class="spec-name">Сокет:</span>
+            //            <span class="spec-value">${component.socket}</span>
+            //        </div>
+            //        <div class="spec-row">
+            //            <span class="spec-name">Ядер:</span>
+            //            <span class="spec-value">${component.cores}</span>
+            //        </div>
+            //        <div class="spec-row">
+            //            <span class="spec-name">Частота:</span>
+            //            <span class="spec-value">${component.freq_clock} GHz</span>
+            //        </div>
+            //        <div class="spec-row">
+            //            <span class="spec-name">TDP:</span>
+            //            <span class="spec-value">${component.tdp} W</span>
+            //        </div>
+            //        <div class="spec-row">
+            //            <span class="spec-name">Графика:</span>
+            //            <span class="spec-value">${component.igp === '+' ? 'Да' : 'Нет'}</span>
+            //        </div>
+            //    </div>`;
+
+            //        container.appendChild(card);
+            //    });
+            //}
+        //});
+
+
+
+
     </script>
 </body>
 </html>
