@@ -44,6 +44,7 @@
             text-shadow: 0 0 20px rgba(102, 252, 241, 0.64);
             font-weight: 900;
             text-align: center;
+            margin-bottom: 20px;
         }
 
         .site-title {
@@ -77,126 +78,92 @@
             padding: 50px;
         }
 
-        /* Фильтры */
-      /*  .filters-container {
+        .filter-grid {
+            display: flex;
+            flex-wrap: wrap; /* Разрешаем перенос на новую строку */
+            gap: 15px; /* Отступ между элементами */
             background-color: #1F2833;
-            border-radius: 20px;
+            border-radius: 15px;
             padding: 20px;
             margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+           
         }
-        .filters-row {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .filter-tag {
-            background-color: #1F2833;
-            color: #C5C6C7;
-            border: 1px solid #45A29E;
-            border-radius: 15px;
-            padding: 5px 15px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-            .filter-tag:hover {
-                border-color: #66FCF1;
-                color: #66FCF1;
-            }
-
-            .filter-tag.active {
-                background-color: #66FCF1;
-                color: #0B0C10;
-                border-color: #66FCF1;
-            }
-
-        .filter-arrow {
-            font-size: 12px;
-        }*/
-        .filter-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            background-color: #1F2833;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-            border: 1px solid #45A29E;
-        }
-
-        .filter-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .filter-label {
-            color: #66FCF1;
-            font-weight: 700;
-            margin-bottom: 8px;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-        }
-
-            /*.filter-label::after {
-                content: " ▼";
-                font-size: 12px;
-                margin-left: 5px;
-                color: #C5C6C7;
-            }
-*/
-        .filter-value {
-            background-color: #0B0C10;
-            border: 1px solid #45A29E;
-            border-radius: 8px;
-            padding: 12px 15px;
-            color: #C5C6C7;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-            .filter-value:hover {
-                border-color: #66FCF1;
-            }
-        
-        .filter-control {
-            width: 100%;
-            background-color: #1F2833;
-            color: #C5C6C7;
-            border: 1px solid #45A29E;
-            border-radius: 8px;
-            padding: 10px 15px;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-
-        .filter-control:focus {
-            border-color: #66FCF1;
-            outline: none;
-            box-shadow: 0 0 10px rgba(102, 252, 241, 0.3);
-        }
-
 
         .filter-row {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+        }
+
+        .filter-label {
+            color: #C5C6C7;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .custom-dropdown {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .dropdown-selected {
+            color: #66FCF1;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+            .dropdown-selected:hover {
+                background-color: rgba(102, 252, 241, 0.1);
+                /*transform: scale(1.05);
+                box-shadow: 0 0 15px #66FCF1;*/
+            }
+
+        .arrow {
+            font-size: 12px;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .dropdown-options {
+            list-style: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #1F2833;
+            border: 1px solid #45A29E;
+            border-radius: 8px;
+            padding: 5px 0;
+            margin-top: 5px;
+            min-width: 120px;
+            z-index: 100;
+            display: none;
+        }
+            .dropdown-options li {
+                padding: 5px 15px;
+                color: #C5C6C7;
+            }
+
+           
+
+                .dropdown-options li:hover {
+                    background-color: #45A29E;
+                    color: white;
+                }
+
+        .custom-dropdown.active .dropdown-options {
+            display: block;
+        }
+
+        .custom-dropdown.active .arrow {
+            transform: rotate(180deg);
         }
 
 
 
-
         /* Список процессоров */
-        .cpu-list {
+        /*.cpu-list {
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -220,7 +187,7 @@
             font-size: 14px;
             line-height: 1.5;
             color: #C5C6C7;
-        }
+        }*/
 
         .spec-highlight {
             color: white;
@@ -254,83 +221,102 @@
         <h1 class="title">Процессор</h1>
 
         <!-- Фильтры -->
-        
+
         <div class="filter-grid">
             <div class="filter-row">
                 <span class="filter-label">ПРОИЗВОДИТЕЛЬ:</span>
-                <select class="filter-control">
-                    <option value="">Все</option>
-                    <option value="Intel">Intel</option>
-                    <option value="AMD">AMD</option>
-                </select>
+                <div class="custom-dropdown">
+                    <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
+                    <ul class="dropdown-options">
+                        <li>Все</li>
+                        <li>Intel</li>
+                        <li>AMD</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="filter-row">
-                <span class="filter-label">СОККЕТ</span>
-                <select class="filter-control">
-                    <option value="">Все</option>
-                    <option value="LGA 1151">LGA 1151</option>
-                    <option value="AM4">AM4</option>
-                </select>
-
+                <span class="filter-label">СОККЕТ:</span>
+                <div class="custom-dropdown">
+                    <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
+                    <ul class="dropdown-options">
+                        <li>Все</li>
+                        <li>LGA 1151</li>
+                        <li>AM4</li>
+                    </ul>
+                </div>
             </div>
-
             <div class="filter-row">
-                <span class="filter-label">СЕМЕЙСТВО</span>
-                <select class="filter-control">
-                    <option value="">Все</option>
-                    <option value="Core i5">Core i5</option>
-                    <option value="AM4">AM4</option>
-                </select>
-
+                <span class="filter-label">СЕМЕЙСТВО:</span>
+                <div class="custom-dropdown">
+                    <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
+                    <ul class="dropdown-options">
+                        <li>Все</li>
+                        <li>LGA 1151</li>
+                        <li>AM4</li>
+                    </ul>
+                </div>
             </div>
-
             <div class="filter-row">
-                <span class="filter-label">КОЛИЧЕСТВО ЯДЕР</span>
-                <select class="filter-control">
-                    <option value="">Все</option>
-                    <option value="8">8</option>
-                    <option value="8">6</option>
-                </select>
-
+                <span class="filter-label">КОЛИЧЕСТВО ЯДЕР:</span>
+                <div class="custom-dropdown">
+                    <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
+                    <ul class="dropdown-options">
+                        <li>Все</li>
+                        <li>LGA 1151</li>
+                        <li>AM4</li>
+                    </ul>
+                </div>
             </div>
-
             <div class="filter-row">
-                <span class="filter-label">ИНТЕГРИРОВАННОЕ ГРАФИЧЕСКОЕ ЯДРО</span>
-                <select class="filter-control">
-                    <option value="">Все</option>
-                    <option value="Core i5">Да</option>
-                    <option value="AM4">Нет</option>
-                </select>
-
+                <span class="filter-label">СЕМЕЙСТВО:</span>
+                <div class="custom-dropdown">
+                    <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
+                    <ul class="dropdown-options">
+                        <li>Все</li>
+                        <li>LGA 1151</li>
+                        <li>AM4</li>
+                    </ul>
+                </div>
             </div>
-
             <div class="filter-row">
-                <span class="filter-label">ТАКТОВАЯ ЧАСТОТА (ГГц)</span>
-                <select class="filter-control">
-                    <option value="">Все</option>
-                    <option value="Core i5">Core i5</option>
-                    <option value="AM4">AM4</option>
-                </select>
-
+                <span class="filter-label">ТАКТОВАЯ ЧАСТОТА (ГГц):</span>
+                <div class="custom-dropdown">
+                    <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
+                    <ul class="dropdown-options">
+                        <li>Все</li>
+                        <li>LGA 1151</li>
+                        <li>AM4</li>
+                    </ul>
+                </div>
             </div>
-
             <div class="filter-row">
-                <span class="filter-label">ТЕПЛОВЫДЕЛЕНИЕ (Вт)</span>
-                <select class="filter-control">
-                    <option value="">Все</option>
-                    <option value="Core i5">Core i5</option>
-                    <option value="AM4">AM4</option>
-                </select>
-
+                <span class="filter-label">ИНТЕГРИРОВАННОЕ ГРАФИЧЕСКОЕ ЯДРО:</span>
+                <div class="custom-dropdown">
+                    <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
+                    <ul class="dropdown-options">
+                        <li>Все</li>
+                        <li>Да</li>
+                        <li>Нет</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="filter-row">
+                <span class="filter-label">ТЕПЛОВЫДЕЛЕНИЕ (Вт):</span>
+                <div class="custom-dropdown">
+                    <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
+                    <ul class="dropdown-options">
+                        <li>Все</li>
+                        <li>LGA 1151</li>
+                        <li>AM4</li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="filter-item">
-                <!-- Пустой элемент для выравнивания -->
-            </div>
+            <!-- Остальные фильтры аналогично -->
         </div>
-                
-           
+
+
 
         <!-- Список процессоров -->
         <div class="cpu-list">
@@ -346,57 +332,29 @@
     <script>
 
    
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                const response = await fetch('data/cpu.json');
-                const processors = await response.json();
+        document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
+            const selected = dropdown.querySelector('.dropdown-selected');
+            const options = dropdown.querySelector('.dropdown-options');
 
-                const container = document.getElementById('components-container');
+            selected.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdown.classList.toggle('active');
+            });
 
-                processors.forEach(processor => {
-                    const card = document.createElement('div');
-                    card.className = 'cpu-item';
-                    card.innerHTML = `
-                        <div class="cpu-name">${processor.name}</div>
-                        <div class="cpu-specs">
-                            <span class="spec-highlight">${processor.socket}</span>,
-                            ${processor.base_clock}-${processor.boost_clock} ГГц,
-                            L2 ${processor.cache_l2}, L3 ${processor.cache_l3},
-                            <span class="spec-highlight">TDP ${processor.tdp} Вт</span>
-                        </div>
-                        <button class="select-btn" data-id="${processor.id}">ВЫБРАТЬ</button>
-                    `;
-                    container.appendChild(card);
+            dropdown.querySelectorAll('.dropdown-options li').forEach(option => {
+                option.addEventListener('click', () => {
+                    selected.innerHTML = option.textContent + ' <span class="arrow">∨</span>';
+                    dropdown.classList.remove('active');
                 });
-
-                // Обработчики для кнопок выбора
-                document.querySelectorAll('.select-btn').forEach(btn => {
-                    btn.addEventListener('click', function () {
-                        const cpuId = this.getAttribute('data-id');
-                        const selectedCpu = processors.find(p => p.id === cpuId);
-                        alert(`Выбран процессор: ${selectedCpu.name}`);
-                        // Здесь будет логика сохранения выбора
-                    });
-                });
-
-            } catch (error) {
-                console.error('Ошибка загрузки данных:', error);
-                document.getElementById('components-container').innerHTML = `
-                    <div class="error-message">
-                        Не удалось загрузить данные о процессорах
-                    </div>
-                `;
-            }
-        });
-
-        // Обработчики для фильтров (раскрытие)
-        document.querySelectorAll('.filter-value').forEach(item => {
-            item.addEventListener('click', function () {
-                // Здесь будет логика раскрытия выпадающего списка
-                console.log('Открываем фильтр:', this.previousElementSibling.textContent);
             });
         });
 
+        // Закрытие при клике вне dropdown
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        });
 
 
 
