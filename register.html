@@ -142,10 +142,11 @@
         <div class="register-container">
             <h1>РЕГИСТРАЦИЯ</h1>
             <form id="registerForm">
-                <input type="text" id="newUsername" placeholder="Придумайте логин" required />
-                <input type="password" id="newPassword" placeholder="Придумайте пароль" required />
-                <input type="password" id="confirmPassword" placeholder="Повторите пароль" required />
-                <button type="submit">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+                <input type="text" id="newUsername" placeholder="Имя" required />
+                <input type="text" id="contactInfo" placeholder="Телефон или E-mail" required />
+                <input type="password" id="newPassword" placeholder="Пароль" required />
+                <input type="password" id="confirmPassword" placeholder="Подтверждение" required />
+                <button type="submit">ПРИСОЕДИНИТЬСЯ</button>
 
                 <div class="login-footer">
                     <span>Уже есть аккаунт?&nbsp;</span><a href="login.html" class="register-link">Войти</a>
@@ -164,6 +165,7 @@
             form.addEventListener("submit", function (e) {
                 e.preventDefault();
                 const username = document.getElementById("newUsername").value.trim();
+                const contactInfo = document.getElementById("contactInfo").value.trim();
                 const password = document.getElementById("newPassword").value.trim();
                 const confirmPassword = document.getElementById("confirmPassword").value.trim();
 
@@ -183,7 +185,7 @@
                     successBox.style.display = "none";
                 }
                 else {
-                    users.push({ username, password });
+                    users.push({ username, contactInfo, password });
                     localStorage.setItem("users", JSON.stringify(users));
                     errorBox.style.display = "none";
                     successBox.style.display = "block";
