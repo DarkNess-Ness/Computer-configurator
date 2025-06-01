@@ -1,0 +1,37 @@
+{
+  "processors": [
+    {
+      "name": "Ryzen 5 5600X",
+      "manufacturer": "AMD",
+      "socket": "AM4",
+      "family": "Ryzen 5",
+      "cores": "6",
+      "freq_clock": "3.7",
+      "tdp": "65",
+      "igp": "+",
+      "image": "images/components/cpu/intel.jpg"
+    },
+    {
+      "name": "Core i7-12700K",
+      "manufacturer": "Intel",
+      "socket": "LGA 1700",
+      "family": "Core i7",
+      "cores": "12",
+      "freq_clock": "3.6",
+      "tdp": "125",
+      "igp": "-",
+      "image": "images/components/cpu/intel.jpg"
+    },
+    {
+      "name": "Ryzen 7 5800X3D",
+      "manufacturer": "AMD",
+      "socket": "AM4",
+      "family": "Ryzen 7",
+      "cores": "8",
+      "freq_clock": "3.4",
+      "tdp": "105",
+      "igp": "-",
+      "image": "images/components/cpu/intel.jpg"
+    }
+  ]
+}

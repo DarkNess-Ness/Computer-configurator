@@ -77,16 +77,15 @@
         main {
             padding: 50px;
         }
-
+        /*Стили для блока с фильтрами*/
         .filter-grid {
             display: flex;
-            flex-wrap: wrap; /* Разрешаем перенос на новую строку */
-            gap: 15px; /* Отступ между элементами */
+            flex-wrap: wrap; 
+            gap: 5px;
             background-color: #1F2833;
             border-radius: 15px;
             padding: 20px;
             margin-bottom: 30px;
-           
         }
 
         .filter-row {
@@ -140,17 +139,19 @@
             z-index: 100;
             display: none;
         }
+
             .dropdown-options li {
                 padding: 5px 15px;
                 color: #C5C6C7;
             }
-
-           
-
                 .dropdown-options li:hover {
                     background-color: #45A29E;
                     color: white;
                 }
+
+
+
+                
 
         .custom-dropdown.active .dropdown-options {
             display: block;
@@ -161,11 +162,11 @@
         }
 
 
-
+        /*Стили для отображения карточек*/
         .components-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 колонки */
-            gap: 25px; /* Расстояние между карточками */
+            grid-template-columns: repeat(4, 1fr); /* 4 колонки */
+            gap: 25px; 
             padding: 20px 0;
         }
 
@@ -204,25 +205,31 @@
 
         .component-specs {
             color: #C5C6C7;
-            font-size: 14px;
+            font-size: 13px;
             line-height: 1.6;
             width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2px;
+            
         }
 
         .spec-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 4px 0;
-            border-bottom: 1px solid rgba(69, 162, 158, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 0; 
+            border-bottom: none;
         }
 
         .spec-name {
-            font-weight: 500;
+           white-space: nowrap; 
         }
 
         .spec-value {
-            color: #66FCF1;
-            font-weight: 700;
+            color: #C5C6C7;
+            font-size: 13px;
+            white-space: nowrap;
         }
 
 
@@ -243,6 +250,7 @@
             margin-top: 10px;
             float: right;
         }
+       
     </style>
 </head>
 <body>
@@ -278,7 +286,9 @@
                     <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
                     <ul class="dropdown-options">
                         <li>Все</li>
-                        <li>LGA 1151</li>
+                        <li>LGA1700</li>
+                        <li>LGA 1851</li>
+                        <li>AM5</li>
                         <li>AM4</li>
                     </ul>
                 </div>
@@ -289,8 +299,10 @@
                     <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
                     <ul class="dropdown-options">
                         <li>Все</li>
-                        <li>LGA 1151</li>
-                        <li>AM4</li>
+                        <li>Intel Core i5</li>
+                        <li>Core Ultra 9</li>
+                        <li>Ryzen 5</li>
+                        <li>Ryzen 7</li>
                     </ul>
                 </div>
             </div>
@@ -299,31 +311,34 @@
                 <div class="custom-dropdown">
                     <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
                     <ul class="dropdown-options">
-                        <li>Все</li>
-                        <li>LGA 1151</li>
-                        <li>AM4</li>
+                        <li>8</li>
+                        <li>6</li>
+                        <li>24</li>
                     </ul>
                 </div>
             </div>
-            <div class="filter-row">
-                <span class="filter-label">СЕМЕЙСТВО:</span>
-                <div class="custom-dropdown">
-                    <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
-                    <ul class="dropdown-options">
-                        <li>Все</li>
-                        <li>LGA 1151</li>
-                        <li>AM4</li>
-                    </ul>
-                </div>
-            </div>
+
             <div class="filter-row">
                 <span class="filter-label">ТАКТОВАЯ ЧАСТОТА (ГГц):</span>
                 <div class="custom-dropdown">
                     <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
                     <ul class="dropdown-options">
                         <li>Все</li>
-                        <li>LGA 1151</li>
-                        <li>AM4</li>
+                        <li>2.5</li>
+                        <li>3.2</li>
+                        <li>3.4</li>
+                        <li>3.7</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="filter-row">
+                <span class="filter-label">ТЕПЛОВЫДЕЛЕНИЕ (Вт):</span>
+                <div class="custom-dropdown">
+                    <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
+                    <ul class="dropdown-options">
+                        <li>117</li>
+                        <li>250</li>
+                        <li>65</li>
                     </ul>
                 </div>
             </div>
@@ -333,138 +348,22 @@
                     <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
                     <ul class="dropdown-options">
                         <li>Все</li>
-                        <li>Да</li>
+                        <li>Есть</li>
                         <li>Нет</li>
                     </ul>
                 </div>
             </div>
-            <div class="filter-row">
-                <span class="filter-label">ТЕПЛОВЫДЕЛЕНИЕ (Вт):</span>
-                <div class="custom-dropdown">
-                    <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
-                    <ul class="dropdown-options">
-                        <li>Все</li>
-                        <li>LGA 1151</li>
-                        <li>AM4</li>
-                    </ul>
-                </div>
-            </div>
 
-           
+
+
         </div>
         <div class="components-grid" id="componentsContainer">
             <!-- Карточки будут вставлены сюда через JavaScript -->
         </div>
 
-
-        <!-- Список процессоров -->
-        <!--<div class="cpu-list">
-
-
-
-
-
-
-        </div>-->
     </main>
-
     <script>
-
-
-
-
-
-        document.addEventListener('DOMContentLoaded', function () {
-            fetch('cpu.json')
-                .then(response => {
-                    if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Получены данные:', data);
-                    if (!data.processors || data.processors.length === 0) {
-                        throw new Error('Нет данных о процессорах');
-                    }
-                    displayComponents(data.processors); // Используем data.processors
-                })
-                .catch(error => {
-                    console.error('Ошибка:', error);
-                    const container = document.getElementById('componentsContainer');
-                    container.innerHTML = `
-                <div style="grid-column: 1/-1; color: #FF4C4C; text-align: center; padding: 20px;">
-                    Ошибка: ${error.message}
-                </div>
-            `;
-                });
-
-            function displayComponents(processors) { // Переименовали параметр для ясности
-                const container = document.getElementById('componentsContainer');
-                container.innerHTML = '';
-
-                processors.forEach(processor => {
-                    const card = document.createElement('div');
-                    card.className = 'component-card';
-
-                    // Проверка изображения
-                    const imgSrc = processor.image || 'images/CPU.png';
-                    const img = new Image();
-                    img.onerror = function () {
-                        this.src = 'images/CPU.png';
-                    };
-                    img.src = imgSrc;
-                    img.className = 'component-image';
-                    img.alt = processor.name;
-
-                    card.innerHTML = `
-                <h3 class="component-name">${processor.name}</h3>
-                <div class="component-specs">
-                    <div class="spec-row">
-                        <span class="spec-name">Производитель:</span>
-                        <span class="spec-value">${processor.manufacturer}</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-name">Сокет:</span>
-                        <span class="spec-value">${processor.socket}</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-name">Ядер:</span>
-                        <span class="spec-value">${processor.cores}</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-name">Частота:</span>
-                        <span class="spec-value">${processor.freq_clock} GHz</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-name">TDP:</span>
-                        <span class="spec-value">${processor.tdp} W</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-name">Графика:</span>
-                        <span class="spec-value">${processor.igp === '+' ? 'Да' : 'Нет'}</span>
-                    </div>
-                </div>
-            `;
-                    card.prepend(img);
-                    container.appendChild(card);
-                });
-            }
-        });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
+        // Обработчики для dropdown
         document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
             const selected = dropdown.querySelector('.dropdown-selected');
             const options = dropdown.querySelector('.dropdown-options');
@@ -489,12 +388,6 @@
             });
         });
 
-
-
-        //нажатие на профиль
-        document.getElementById('profileBtn').addEventListener('click', function () {
-            window.location.href = 'profile.html';
-        });
         // Обработчики для фильтров
         document.querySelectorAll('.filter-tag').forEach(tag => {
             tag.addEventListener('click', function () {
@@ -502,80 +395,123 @@
             });
         });
 
-        // Обработчики для кнопок выбора
-        document.querySelectorAll('.select-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const cpuName = this.parentElement.querySelector('.cpu-name').textContent;
-                alert(`Выбран процессор: ${cpuName}`);
-                // Здесь будет логика сохранения выбора
-            });
+        // Нажатие на профиль
+        document.getElementById('profileBtn').addEventListener('click', function () {
+            window.location.href = 'profile.html';
         });
 
+        // Данные процессоров
+        const localData = {
+            processors: [
+                {
+                    "name": " Intel Core i5-12400F",
+                    "manufacturer": "Intel",
+                    "socket": "LGA1700",
+                    "family": "Intel Core i5",
+                    "cores": "6",
+                    "freq_clock": "2.5",
+                    "tdp": "117",
+                    "igp": "-",
+                    "image": "images/components/cpu/intel.jpg"
+                },
+                {
+                    "name": "Intel Core Ultra 9 285K",
+                    "manufacturer": "Intel",
+                    "socket": "LGA 1851",
+                    "family": "Core Ultra 9",
+                    "cores": "24",
+                    "freq_clock": "3.2",
+                    "tdp": "250",
+                    "igp": "+",
+                    "image": "images/components/cpu/ultra9.jpg"
+                },
+                {
+                    "name": "AMD Ryzen 5 7500F",
+                    "manufacturer": "AMD",
+                    "socket": "AM5",
+                    "family": "Ryzen 5",
+                    "cores": "6",
+                    "freq_clock": "3.7",
+                    "tdp": "65",
+                    "igp": "-",
+                    "image": "images/components/cpu/ryzen5.jpg"
+                },
+                {
+                    "name": "AMD Ryzen 7 5700X",
+                    "manufacturer": "AMD",
+                    "socket": "AM4",
+                    "family": "Ryzen 7",
+                    "cores": "8",
+                    "freq_clock": "3.4",
+                    "tdp": "65",
+                    "igp": "-",
+                    "image": "images/components/cpu/ryzon7.jpg"
+                }
+            ]
+        };
 
-       
+        // Функция отображения карточек
+        function displayComponents(processors) {
+            const container = document.getElementById('componentsContainer');
+            container.innerHTML = '';
 
+            processors.forEach(processor => {
+                const card = document.createElement('div');
+                card.className = 'component-card';
 
+                // Проверка изображения
+                const imgSrc = processor.image || 'images/CPU.png';
+                const img = new Image();
+                img.onerror = function () {
+                    this.src = 'images/CPU.png';
+                };
+                img.src = imgSrc;
+                img.className = 'component-image';
+                img.alt = processor.name;
+                card.innerHTML = `
+                <h3 class="component-name">${processor.name}</h3>
+                <div class="component-specs">
+                    <div class="spec-row">
+                        <span class="spec-name">Производитель:</span>
+                        <span class="spec-value">${processor.manufacturer},</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Сокет:</span>
+                        <span class="spec-value">${processor.socket},</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Ядер:</span>
+                        <span class="spec-value">${processor.cores},</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Частота:</span>
+                        <span class="spec-value">${processor.freq_clock} GHz,</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">TDP:</span>
+                        <span class="spec-value">${processor.tdp} W,</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Графика:</span>
+                        <span class="spec-value">${processor.igp === '+' ? 'Да' : 'Нет'}</span>
+                    </div>
+                </div>
+            `;
 
+               
+                card.prepend(img);
+                container.appendChild(card);
+            });
+        }
 
-
-
-
-            //// Загрузка JSON
-            //fetch('cpu.json') // Укажите правильный путь к файлу
-            //    .then(response => response.json())
-            //    .then(data => {
-            //        displayComponents(data);
-            //    })
-            //    .catch(error => {
-            //        console.error('Ошибка загрузки данных:', error);
-            //    });
-
-            //// Функция отображения карточек
-            //function displayComponents(components) {
-            //    const container = document.getElementById('componentsContainer');
-
-            //    components.forEach(component => {
-            //        const card = document.createElement('div');
-            //        card.className = 'component-card';
-
-            //        card.innerHTML = `
-            //        <img src="${component.image}" alt="${component.name}" class="component-image">
-            //    <h3 class="component-name">${component.name}</h3>
-            //    <div class="component-specs">
-            //        <div class="spec-row">
-            //            <span class="spec-name">Производитель:</span>
-            //            <span class="spec-value">${component.manufacturer}</span>
-            //        </div>
-            //        <div class="spec-row">
-            //            <span class="spec-name">Сокет:</span>
-            //            <span class="spec-value">${component.socket}</span>
-            //        </div>
-            //        <div class="spec-row">
-            //            <span class="spec-name">Ядер:</span>
-            //            <span class="spec-value">${component.cores}</span>
-            //        </div>
-            //        <div class="spec-row">
-            //            <span class="spec-name">Частота:</span>
-            //            <span class="spec-value">${component.freq_clock} GHz</span>
-            //        </div>
-            //        <div class="spec-row">
-            //            <span class="spec-name">TDP:</span>
-            //            <span class="spec-value">${component.tdp} W</span>
-            //        </div>
-            //        <div class="spec-row">
-            //            <span class="spec-name">Графика:</span>
-            //            <span class="spec-value">${component.igp === '+' ? 'Да' : 'Нет'}</span>
-            //        </div>
-            //    </div>`;
-
-            //        container.appendChild(card);
-            //    });
-            //}
-        //});
-
-
-
-
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function () {
+            displayComponents(localData.processors);
+        });
     </script>
+   
 </body>
 </html>
+
+
+
