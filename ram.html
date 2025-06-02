@@ -1,0 +1,593 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Процессор</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: #0B0C10;
+            color: #C5C6C7;
+        }
+
+        /* Шапка */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            border-bottom: 1px solid #45A29E;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 75px;
+            height: 75px;
+        }
+
+        .title {
+            font-size: 64px;
+            color: #66FCF1;
+            text-shadow: 0 0 20px rgba(102, 252, 241, 0.64);
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .site-title {
+            font-size: 40px;
+            font-weight: 900;
+            color: #66FCF1;
+            text-shadow: 0 4px 20px rgba(102, 252, 241, 0.64);
+        }
+
+        .profile-btn {
+            background-color: #66FCF1;
+            color: #0B0C10;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 100px;
+            font-weight: 900;
+            font-size: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 140px;
+            text-align: center;
+        }
+
+            .profile-btn:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 15px #66FCF1;
+            }
+
+        /* Основной контент */
+        main {
+            padding: 50px;
+        }
+        /*Стили для блока с фильтрами*/
+        .filter-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            background-color: #1F2833;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .filter-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-label {
+            color: #C5C6C7;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .custom-dropdown {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .dropdown-selected {
+            color: #66FCF1;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+            .dropdown-selected:hover {
+                background-color: rgba(102, 252, 241, 0.1);
+                /*transform: scale(1.05);
+                box-shadow: 0 0 15px #66FCF1;*/
+            }
+
+        .arrow {
+            font-size: 12px;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .dropdown-options {
+            list-style: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #1F2833;
+            border: 1px solid #45A29E;
+            border-radius: 8px;
+            padding: 5px 0;
+            margin-top: 5px;
+            min-width: 120px;
+            z-index: 100;
+            display: none;
+        }
+
+            .dropdown-options li {
+                padding: 5px 15px;
+                color: #C5C6C7;
+            }
+
+                .dropdown-options li:hover {
+                    background-color: #45A29E;
+                    color: white;
+                }
+
+
+
+
+
+        .custom-dropdown.active .dropdown-options {
+            display: block;
+        }
+
+        .custom-dropdown.active .arrow {
+            transform: rotate(180deg);
+        }
+
+
+        /*Стили для отображения карточек*/
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 колонки */
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        .component-card {
+            background: linear-gradient(135deg, #0B0C10 0%, #1F2833 100%);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid #45A29E;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+            .component-card:hover {
+                transform: scale(1.03);
+                box-shadow: 0 0 20px rgba(102, 252, 241, 0.3);
+                border-color: #66FCF1;
+            }
+
+        .component-image {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .component-name {
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .component-specs {
+            color: #C5C6C7;
+            font-size: 13px;
+            line-height: 1.6;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2px;
+        }
+
+        .spec-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 0;
+            border-bottom: none;
+        }
+
+        .spec-name {
+            white-space: nowrap;
+        }
+
+        .spec-value {
+            color: #C5C6C7;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+
+        .spec-highlight {
+            color: white;
+            font-weight: 500;
+        }
+
+        .select-btn {
+            background-color: #66FCF1;
+            color: #0B0C10;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 10px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <img src="images/logo.png" class="logo" alt="Логотип">
+            <span class="site-title">ЖЕЛЕЗНЫЙ ТЮНЕР</span>
+        </div>
+        <button id="profileBtn" class="profile-btn">Профиль</button>
+    </header>
+
+    <main>
+        <h1 class="title">Оперативная память</h1>
+
+        <!-- Фильтры -->
+
+        <div class="filter-grid">
+            <div class="filter-row">
+                <span class="filter-label">БРЕНД:</span>
+                <div class="custom-dropdown" id="manufacturerFilter">
+                    <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
+                    <ul class="dropdown-options">
+                        <li data-value="">Все</li>
+                        <li data-value="Kingston">Kingston</li>
+                        <li data-value="HyperX">HyperX</li>
+                        <li data-value="Patriot">Patriot</li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="filter-row">
+                <span class="filter-label">ТИП ПАМЯТИ:</span>
+                <div class="custom-dropdown" id="mem_typeFilter">
+                    <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
+                    <ul class="dropdown-options">
+                        <li data-value="">Все</li>
+                        <li data-value="DDR4">DDR4</li>
+                        <li data-value="DDR3">DDR3</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="filter-row">
+                <span class="filter-label">ФОРМ-ФАКТОР:</span>
+                <div class="custom-dropdown" id="formFilter">
+                    <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
+                    <ul class="dropdown-options">
+                        <li data-value="">Все</li>
+                        <li data-value="DIMM">DIMM</li>
+                        <li data-value="UDIMM">UDIMM</li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="filter-row">
+                <span class="filter-label">ТАКТОВАЯ ЧАСТОТА:</span>
+                <div class="custom-dropdown" id="freqFilter">
+                    <div class="dropdown-selected" data-value="">Все <span class="arrow">∨</span></div>
+                    <ul class="dropdown-options">
+                        <li data-value="">Все</li>
+                        <li data-value="1866">1866</li>
+                        <li data-value="2400">2400</li>
+                        <li data-value="2666">2666</li>
+                        <li data-value="3200">3200</li>
+                        <li data-value="3600">3600</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="filter-row">
+                <span class="filter-label">КОЛ-ВО МОДУЛЕЙ:</span>
+                <div class="custom-dropdown" id="igpFilter">
+                    <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
+                    <ul class="dropdown-options">
+                        <li data-value="">Все</li>
+                        <li data-value="1">1</li>
+                        <li data-value="2">2</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="filter-row">
+                <span class="filter-label">ОБЪЕМ МОДУЛЯ (ГБ):</span>
+                <div class="custom-dropdown" id="memoryFilter">
+                    <div class="dropdown-selected" data-value="">Все <span class="arrow">∨</span></div>
+                    <ul class="dropdown-options">
+                        <li data-value="">Все</li>
+                        <li data-value="16">16</li>
+                        <li data-value="8">8</li>
+                        
+                    </ul>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+        <div class="components-grid" id="componentsContainer">
+            <!-- Карточки будут вставлены сюда через JavaScript -->
+        </div>
+
+    </main>
+    <script>
+
+        let allrams = [];
+        const filters = {
+            manufacturer: '',
+            form: '',
+            mem_type: '',
+            freq_clock: '',
+            memory: '',
+            igp: ''
+        };
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function () {
+            // Используем локальные данные
+            allrams = [
+                {
+                    "name": "Kingston Fury Beast Black",
+                    "manufacturer": "Kingston",
+                    "form": "DIMM",
+                    "mem_type": "DDR4",
+                    "freq_clock": "3600",
+                    "memory": "16",
+                    "igp": "2",
+                    "image": "images/components/ram/king.jpg"
+                },
+                {
+                    "name": "Reletech Memory",
+                    "manufacturer": "Reletech",
+                    "form": "DIMM",
+                    "mem_type": "DDR4",
+                    "freq_clock": "3200",
+                    "memory": "16",
+                    "igp": "2",
+                    "image": "images/components/ram/reletec.jpg"
+                },
+                {
+                    "name": "HyperX Fury Black",
+                    "manufacturer": "HyperX",
+                    "form": "DIMM",
+                    "mem_type": "DDR3",
+                    "freq_clock": "1866",
+                    "memory": "8",
+                    "igp": "2",
+                    "image": "images/components/ram/hyper.jpg"
+                },
+                {
+                    "name": "Patriot Memory",
+                    "manufacturer": "Patriot",
+                    "form": "DIMM",
+                    "mem_type": "DDR4",
+                    "freq_clock": "2666",
+                    "memory": "8",
+                    "igp": "1",
+                    "image": "images/components/ram/patriot.jpg"
+                },
+                {
+                    "name": "HyperX Fury White",
+                    "manufacturer": "HyperX",
+                    "form": "UDIMM",
+                    "mem_type": "DDR4",
+                    "freq_clock": "2400",
+                    "memory": "8",
+                    "igp": "1",
+                    "image": "images/components/ram/white.jpg"
+                },
+               
+            ];
+
+            // Инициализация фильтров
+            initFilters();
+
+            // Отображение всех процессоров
+            displayComponents(allrams);
+        });
+
+        // Инициализация фильтров
+        function initFilters() {
+            // Обработчики для dropdown
+            document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
+                const selected = dropdown.querySelector('.dropdown-selected');
+                const options = dropdown.querySelector('.dropdown-options');
+
+                selected.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    dropdown.classList.toggle('active');
+                });
+
+                dropdown.querySelectorAll('.dropdown-options li').forEach(option => {
+                    option.addEventListener('click', () => {
+                        const value = option.getAttribute('data-value');
+                        selected.innerHTML = option.textContent + ' <span class="arrow">∨</span>';
+                        selected.setAttribute('data-value', value);
+                        dropdown.classList.remove('active');
+
+                        // Обновляем фильтры и применяем их
+                        updateFilters();
+                        applyFilters();
+                    });
+                });
+            });
+
+            // Закрытие при клике вне dropdown
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.custom-dropdown')) {
+                    document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
+                        dropdown.classList.remove('active');
+                    });
+                }
+            });
+
+            // Нажатие на профиль
+            document.getElementById('profileBtn').addEventListener('click', function () {
+                window.location.href = 'profile.html';
+            });
+        }
+
+        // Обновление объекта фильтров
+        function updateFilters() {
+            filters.manufacturer = document.querySelector('#manufacturerFilter .dropdown-selected').getAttribute('data-value') || '';
+            filters.form = document.querySelector('#formFilter .dropdown-selected').getAttribute('data-value') || '';
+            filters.mem_type = document.querySelector('#mem_typeFilter .dropdown-selected').getAttribute('data-value') || '';
+            filters.freq_clock = document.querySelector('#freqFilter .dropdown-selected').getAttribute('data-value') || '';
+            filters.memory = document.querySelector('#memoryFilter .dropdown-selected').getAttribute('data-value') || '';
+            filters.igp = document.querySelector('#igpFilter .dropdown-selected').getAttribute('data-value') || '';
+        }
+
+        // Применение фильтров
+        function applyFilters() {
+            const filtered = allrams.filter(ram => {
+                // Проверка производителя
+                if (filters.manufacturer && ram.manufacturer !== filters.manufacturer) return false;
+
+                // Проверка сокета
+                if (filters.form && ram.form !== filters.form) return false;
+
+                // Проверка семейства
+                if (filters.cold && ram.cold !== filters.cold) return false;
+
+                // Проверка количества ядер
+                if (filters.mem_type && ram.mem_type !== filters.mem_type) return false;
+
+                // Проверка частоты
+                if (filters.freq_clock && ram.freq_clock !== filters.freq_clock) return false;
+
+                // Проверка memory
+                if (filters.memory && ram.memory !== filters.memory) return false;
+
+                // Проверка графики
+                if (filters.igp && ram.igp !== filters.igp) return false;
+
+                return true;
+            });
+
+            displayComponents(filtered);
+        }
+
+
+        // Функция отображения карточек
+        function displayComponents(rams) {
+
+            const container = document.getElementById('componentsContainer');
+            container.innerHTML = '';
+
+            if (rams.length === 0) {
+                container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: #FF4C4C;">Ничего не найдено</div>';
+                return;
+            }
+
+            rams.forEach(ram => {
+                const card = document.createElement('div');
+                card.className = 'component-card';
+
+                // Добавляем обработчик клика на карточку
+                card.addEventListener('click', () => {
+                    // Сохраняем в Local Storage (автоматически перезаписывает предыдущее значение)
+                    localStorage.setItem('selectedram', JSON.stringify(ram));
+
+                    // Показываем стандартное браузерное сообщение
+                    alert(`Процессор "${ram.name}" добавлен в сборку`);
+                });
+
+                // Проверка изображения
+                const imgSrc = ram.image || 'images/CPU.png';
+                const img = new Image();
+                img.onerror = function () {
+                    this.src = 'images/CPU.png';
+                };
+                img.src = imgSrc;
+                img.className = 'component-image';
+                img.alt = ram.name;
+
+                card.innerHTML = `
+                <h3 class="component-name">${ram.name}</h3>
+                <div class="component-specs">
+                    <div class="spec-row">
+                        <span class="spec-name">Бренд:</span>
+                        <span class="spec-value">${ram.manufacturer},</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Форм-фактор:</span>
+                        <span class="spec-value">${ram.form},</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Тип памяти:</span>
+                        <span class="spec-value">${ram.mem_type},</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Частота:</span>
+                        <span class="spec-value">${ram.freq_clock} MHz,</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Объем модуля:</span>
+                        <span class="spec-value">${ram.memory} ГБ,</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Кол-во модулей:</span>
+                        <span class="spec-value">${ram.igp}</span>
+                    </div>
+                </div>
+            `;
+
+
+                card.prepend(img);
+                container.appendChild(card);
+            });
+
+
+        }
+    </script>
+
+</body>
+</html>
+
+
+
