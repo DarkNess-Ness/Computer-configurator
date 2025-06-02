@@ -175,6 +175,50 @@
                     successBox.style.display = "none";
                     return;
                 }
+
+                 // Добавлена проверка длины и содержания пароля
+                 if (password.length < 8) {
+                    errorBox.textContent = "Пароль должен содержать минимум 8 символов!";
+                    errorBox.style.display = "block";
+                    successBox.style.display = "none";
+                return;
+                }
+
+                if (!/[A-Za-z]/.test(password)) {
+                    errorBox.textContent = "Пароль должен содержать хотя бы одну букву!";
+                    errorBox.style.display = "block";
+                    successBox.style.display = "none";
+                    return;
+                }
+
+                if (!/[0-9]/.test(password)) {
+                    errorBox.textContent = "Пароль должен содержать хотя бы одну цифру!";
+                    errorBox.style.display = "block";
+                    successBox.style.display = "none";
+                    return;
+                }
+
+                // Добавлена проверка поля контактной информации
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const phoneRegex = /^\+?[0-9]{7,15}$/;
+
+                if (contactInfo.includes("@")) {
+                // Проверяем как email
+                if (!emailRegex.test(contactInfo)) {
+                    errorBox.textContent = "Некорректный формат email!";
+                    errorBox.style.display = "block";
+                    successBox.style.display = "none";
+                    return;
+                    }
+                } else {
+                // Проверяем как телефон
+                if (!phoneRegex.test(contactInfo)) {
+                    errorBox.textContent = "Некорректный формат телефона! Допустимы только цифры и, возможно, + в начале.";
+                    errorBox.style.display = "block";
+                    successBox.style.display = "none";
+                    return;
+                    }
+                }
                 
                 const users = JSON.parse(localStorage.getItem("users") || "[]");
                 const userExists = users.some(user => user.username === username);
