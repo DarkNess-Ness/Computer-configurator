@@ -185,7 +185,7 @@
                     successBox.style.display = "none";
                 }
                 else {
-                    users.push({ username, contactInfo, password });
+                    users.push({ username, contactInfo, password, registeredAt: new Date().toISOString()});
                     localStorage.setItem("users", JSON.stringify(users));
                     errorBox.style.display = "none";
                     successBox.style.display = "block";
