@@ -259,8 +259,48 @@
         });
         //обработчик нажатия на Сохранить
         document.getElementById('buildBtn').addEventListener('click', function () {
-            // вот тут по идее сохранение сборки в localStorage
-            alert('Сборка сохранена');
+            const userProfile = JSON.parse(localStorage.getItem('userProfile')) || {
+                builds: [],
+                currentBuild: null
+            };
+
+            // 2. Собираем данные о выбранных компонентах
+            const selectedComponents = {
+                cpu: JSON.parse(localStorage.getItem('selectedProcessor')),
+                videocard: JSON.parse(localStorage.getItem('selectedvideocard')),
+                ram: JSON.parse(localStorage.getItem('selectedram')),
+                motherboard: JSON.parse(localStorage.getItem('selectedmotherboard')),
+                sd: JSON.parse(localStorage.getItem('selectedSD')),
+                block: JSON.parse(localStorage.getItem('selectedBlock')),
+                cooling: JSON.parse(localStorage.getItem('selectedCooler')),
+                corpus: JSON.parse(localStorage.getItem('selectedCorpus'))
+                
+            };
+
+            // 3. Фильтруем пустые значения (если какие-то компоненты не выбраны)
+            const nonEmptyComponents = Object.fromEntries(
+                Object.entries(selectedComponents).filter(([_, value]) => value !== null)
+            );
+
+            // 4. Создаем новую сборку
+            const newBuild = {
+                name: `Сборка ${userProfile.builds.length + 1}`,
+                components: nonEmptyComponents,
+                createdAt: new Date().toISOString()
+            };
+
+            // 5. Добавляем сборку в профиль
+            userProfile.builds.push(newBuild);
+            userProfile.currentBuild = newBuild;
+
+            // 6. Сохраняем обновленный профиль
+            localStorage.setItem('userProfile', JSON.stringify(userProfile));
+
+            // 7. Показываем уведомление
+            alert('Сборка сохранена!');
+
+            // 8. Для отладки можно вывести в консоль
+            console.log('Текущие сборки:', userProfile.builds);
 
         });
         document.getElementById('breakBtn').addEventListener('click', () => {
