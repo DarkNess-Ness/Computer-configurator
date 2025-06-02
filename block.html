@@ -273,78 +273,47 @@
                     <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
                     <ul class="dropdown-options">
                         <li data-value="">Все</li>
-                        <li data-value="Kingston">Kingston</li>
-                        <li data-value="HyperX">HyperX</li>
-                        <li data-value="Patriot">Patriot</li>
+                        <li data-value="1stPlayer">1stPlayer</li>
+                        <li data-value="Deepcool">Deepcool</li>
+                        <li data-value="ExeGate">ExeGate</li>
+                        <li data-value="AeroCool">AeroCool</li>
+                        <li data-value="CBR">CBR</li>
                     </ul>
                 </div>
             </div>
-
-
             <div class="filter-row">
-                <span class="filter-label">МОЩНОСТЬ:</span>
-                <div class="custom-dropdown" id="mem_typeFilter">
+                <span class="filter-label">МОЩНОСТЬ (Вт):</span>
+                <div class="custom-dropdown" id="powerFilter">
                     <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
                     <ul class="dropdown-options">
                         <li data-value="">Все</li>
-                        <li data-value="DDR4">DDR4</li>
-                        <li data-value="DDR3">DDR3</li>
+                        <li data-value="400">400</li>
+                        <li data-value="450">450</li>
+                        <li data-value="550">550</li>
+                        <li data-value="600">600</li>
                     </ul>
                 </div>
             </div>
-
-
-
-
-            <!--ниже пока не актульно-->
-
             <div class="filter-row">
                 <span class="filter-label">ФОРМ-ФАКТОР:</span>
                 <div class="custom-dropdown" id="formFilter">
                     <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
                     <ul class="dropdown-options">
                         <li data-value="">Все</li>
-                        <li data-value="DIMM">DIMM</li>
-                        <li data-value="UDIMM">UDIMM</li>
+                        <li data-value="ATX">ATX</li>
+                        <li data-value="SFX">SFX</li>
 
                     </ul>
                 </div>
-            </div>
-
+            </div>           
             <div class="filter-row">
-                <span class="filter-label">ТАКТОВАЯ ЧАСТОТА:</span>
-                <div class="custom-dropdown" id="freqFilter">
+                <span class="filter-label">СТАНДАРТ 80 PLUS:</span>
+                <div class="custom-dropdown" id="stndartFilter">
                     <div class="dropdown-selected" data-value="">Все <span class="arrow">∨</span></div>
                     <ul class="dropdown-options">
                         <li data-value="">Все</li>
-                        <li data-value="1866">1866</li>
-                        <li data-value="2400">2400</li>
-                        <li data-value="2666">2666</li>
-                        <li data-value="3200">3200</li>
-                        <li data-value="3600">3600</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="filter-row">
-                <span class="filter-label">КОЛ-ВО МОДУЛЕЙ:</span>
-                <div class="custom-dropdown" id="igpFilter">
-                    <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
-                    <ul class="dropdown-options">
-                        <li data-value="">Все</li>
-                        <li data-value="1">1</li>
-                        <li data-value="2">2</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="filter-row">
-                <span class="filter-label">ОБЪЕМ МОДУЛЯ (ГБ):</span>
-                <div class="custom-dropdown" id="memoryFilter">
-                    <div class="dropdown-selected" data-value="">Все <span class="arrow">∨</span></div>
-                    <ul class="dropdown-options">
-                        <li data-value="">Все</li>
-                        <li data-value="16">16</li>
-                        <li data-value="8">8</li>
+                        <li data-value="+">Да</li>
+                        <li data-value="-">Нет</li>
 
                     </ul>
                 </div>
@@ -366,10 +335,9 @@
         const filters = {
             manufacturer: '',
             form: '',
-            mem_type: '',
-            freq_clock: '',
-            memory: '',
-            igp: ''
+            power: '',
+            stndart: ''
+            
         };
 
         // Инициализация при загрузке страницы
@@ -377,14 +345,44 @@
             // Используем локальные данные
             allBlocks = [
                 {
-                    "name": "Kingston Fury Beast Black",
-                    "manufacturer": "Kingston",
-                    "form": "DIMM",
-                    "mem_type": "DDR4",
-                    "freq_clock": "3600",
-                    "memory": "16",
-                    "igp": "2",
-                    "image": "images/components/block/king.jpg"
+                    "name": "Блок питания 1STPLAYER FK",
+                    "manufacturer": "1stPlayer",
+                    "form": "ATX",
+                    "power": "600",
+                    "stndart": "+",                    
+                    "image": "images/components/block/1power.jpg"
+                },
+                {
+                    "name": "Блок питания Deepcool PF550",
+                    "manufacturer": "Deepcool",
+                    "form": "ATX",
+                    "power": "550",
+                    "stndart": "+",
+                    "image": "images/components/block/deepcool.jpg"
+                },
+                {
+                    "name": "AeroCool AERO BRONZE",
+                    "manufacturer": "AeroCool",
+                    "form": "ATX",
+                    "power": "600",
+                    "stndart": "+",
+                    "image": "images/components/block/aero.jpg"
+                },
+                {
+                    "name": "Блок питания 400W ExeGate AAA400",
+                    "manufacturer": "ExeGate",
+                    "form": "ATX",
+                    "power": "400",
+                    "stndart": "-",
+                    "image": "images/components/block/exegate.jpg"
+                },
+                {
+                    "name": "Блок питания Cbr ATX PSU-ATX450-08EC",
+                    "manufacturer": "CBR",
+                    "form": "ATX",
+                    "power": "450",
+                    "stndart": "+",
+                    "image": "images/components/block/cbr.jpg"
                 },
                
 
@@ -442,10 +440,9 @@
         function updateFilters() {
             filters.manufacturer = document.querySelector('#manufacturerFilter .dropdown-selected').getAttribute('data-value') || '';
             filters.form = document.querySelector('#formFilter .dropdown-selected').getAttribute('data-value') || '';
-            filters.mem_type = document.querySelector('#mem_typeFilter .dropdown-selected').getAttribute('data-value') || '';
-            filters.freq_clock = document.querySelector('#freqFilter .dropdown-selected').getAttribute('data-value') || '';
-            filters.memory = document.querySelector('#memoryFilter .dropdown-selected').getAttribute('data-value') || '';
-            filters.igp = document.querySelector('#igpFilter .dropdown-selected').getAttribute('data-value') || '';
+            filters.power = document.querySelector('#powerFilter .dropdown-selected').getAttribute('data-value') || '';
+            filters.stndart = document.querySelector('#stndartFilter .dropdown-selected').getAttribute('data-value') || '';
+            
         }
 
         // Применение фильтров
@@ -454,24 +451,17 @@
                 // Проверка производителя
                 if (filters.manufacturer && Block.manufacturer !== filters.manufacturer) return false;
 
-                // Проверка сокета
+                // Проверка форм-фактора
                 if (filters.form && Block.form !== filters.form) return false;
+               
+                // Проверка мощности
+                if (filters.power && Block.power !== filters.power) return false;
 
-                // Проверка семейства
-                if (filters.cold && Block.cold !== filters.cold) return false;
+                
+                // Проверка stndart
+                if (filters.stndart && Block.stndart !== filters.stndart) return false;
 
-                // Проверка количества ядер
-                if (filters.mem_type && Block.mem_type !== filters.mem_type) return false;
-
-                // Проверка частоты
-                if (filters.freq_clock && Block.freq_clock !== filters.freq_clock) return false;
-
-                // Проверка memory
-                if (filters.memory && Block.memory !== filters.memory) return false;
-
-                // Проверка графики
-                if (filters.igp && Block.igp !== filters.igp) return false;
-
+               
                 return true;
             });
 
@@ -525,21 +515,14 @@
                         <span class="spec-value">${Block.form},</span>
                     </div>
                     <div class="spec-row">
-                        <span class="spec-name">Тип памяти:</span>
-                        <span class="spec-value">${Block.mem_type},</span>
-                    </div>
+                        <span class="spec-name">Мощность:</span>
+                        <span class="spec-value">${Block.power} ВТ,</span>
+                    </div>                    
                     <div class="spec-row">
-                        <span class="spec-name">Частота:</span>
-                        <span class="spec-value">${Block.freq_clock} MHz,</span>
+                        <span class="spec-name">Наличие стандарта 80 Plus:</span>
+                        <span class="spec-value">${Block.stndart === '+' ? 'Да' : 'Нет'}</span>
                     </div>
-                    <div class="spec-row">
-                        <span class="spec-name">Объем модуля:</span>
-                        <span class="spec-value">${Block.memory} ГБ,</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-name">Кол-во модулей:</span>
-                        <span class="spec-value">${Block.igp}</span>
-                    </div>
+                   
                 </div>
             `;
 
