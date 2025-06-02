@@ -264,10 +264,20 @@
 
         });
         document.getElementById('breakBtn').addEventListener('click', () => {
-            if (confirm('Сбросить текущий выбор компонентов?')) {
-                localStorage.removeItem("selectedComponents");
-                alert('Выбор сброшен!');
-                displaySelectedComponents();
+
+
+            if (confirm('Удалить сборку?')) {
+
+
+                var myItem = localStorage.getItem('users');
+                localStorage.clear();
+                localStorage.setItem('users', myItem);
+
+
+
+                //localStorage.removeItem("selectedComponents");
+                //alert('Выбор сброшен!');
+                //displaySelectedComponents();
             }
         });
 
