@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Процессор</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?memory=Montserrat:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -274,7 +274,9 @@
                     <ul class="dropdown-options">
                         <li data-value="">Все</li>
                         <li data-value="ASRock">ASRock</li>
-                        <li data-value="AMD">AMD</li>
+                        <li data-value="GIGABYTE">GIGABYTE</li>
+                        <li data-value="ASUS">ASUS</li>
+                        <li data-value="MSI">MSI</li>
                     </ul>
                 </div>
             </div>
@@ -285,8 +287,8 @@
                     <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
                     <ul class="dropdown-options">
                         <li data-value="">Все</li>
-                        <li data-value="LGA1700">LGA1700</li>
-                        <li data-value="LGA 1851">LGA 1851</li>
+                        <li data-value="LGA1200">LGA1200</li>
+                        <li data-value="LGA1851">LGA1851</li>
                         <li data-value="AM5">AM5</li>
                         <li data-value="AM4">AM4</li>
                     </ul>
@@ -294,15 +296,14 @@
             </div>
 
             <div class="filter-row">
-                <span class="filter-label">СЕМЕЙСТВО:</span>
-                <div class="custom-dropdown" id="familyFilter">
+                <span class="filter-label">ПАМЯТЬ:</span>
+                <div class="custom-dropdown" id="memoryFilter">
                     <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
                     <ul class="dropdown-options">
                         <li data-value="">Все</li>
-                        <li data-value="Intel Core i5">Intel Core i5</li>
-                        <li data-value="Core Ultra 9">Core Ultra 9</li>
-                        <li data-value="Ryzen 5">Ryzen 5</li>
-                        <li data-value="Ryzen 7">Ryzen 7</li>
+                        <li data-value="DDR4">DDR4</li>
+                        <li data-value="DDR5">DDR5</li>
+                        
                     </ul>
                 </div>
             </div>
@@ -314,49 +315,36 @@
                     <ul class="dropdown-options">
                         <li data-value="">Все</li>
                         <li data-value="2">2</li>
-                        <li data-value="6">6</li>
-                        <li data-value="24">24</li>
+                        <li data-value="4">4</li>                        
                     </ul>
                 </div>
             </div>
 
+          
+            <!-- Форм-фактор -->
             <div class="filter-row">
-                <span class="filter-label">ТАКТОВАЯ ЧАСТОТА (ГГц):</span>
-                <div class="custom-dropdown" id="freqFilter">
+                <span class="filter-label">РАЗМЕР:</span>
+                <div class="custom-dropdown" id="form_factorFilter">
                     <div class="dropdown-selected" data-value="">Все <span class="arrow">∨</span></div>
                     <ul class="dropdown-options">
                         <li data-value="">Все</li>
-                        <li data-value="2.5">2.5</li>
-                        <li data-value="3.2">3.2</li>
-                        <li data-value="3.4">3.4</li>
-                        <li data-value="3.7">3.7</li>
+                        <li data-value="Micro ATX">Micro ATX</li>
+                        <li data-value="ATX">ATX</li>
+                        <li data-value="Mini-ITX">Mini-ITX</li>
                     </ul>
                 </div>
             </div>
-
-            <!-- Тепловыделение -->
-            <div class="filter-row">
-                <span class="filter-label">ТЕПЛОВЫДЕЛЕНИЕ (Вт):</span>
-                <div class="custom-dropdown" id="tdpFilter">
-                    <div class="dropdown-selected" data-value="">Все <span class="arrow">∨</span></div>
-                    <ul class="dropdown-options">
-                        <li data-value="">Все</li>
-                        <li data-value="65">65</li>
-                        <li data-value="117">117</li>
-                        <li data-value="250">250</li>
-                    </ul>
-                </div>
-            </div>
-
+            <!-- Чипсет -->
             <div class="filter-row">
                 <span class="filter-label">ЧИПСЕТ:</span>
                 <div class="custom-dropdown" id="chipsetFilter">
                     <div class="dropdown-selected">Все <span class="arrow">∨</span></div>
                     <ul class="dropdown-options">
                         <li data-value="">Все</li>
-                        <li data-value="AMD">AMD</li>
-                        <li data-value="117">117</li>
-                        <li data-value="250">250</li>
+                        <li data-value="Intel H470">Intel H470</li>
+                        <li data-value="Intel Z890">Intel Z890</li>
+                        <li data-value="AMD B850">AMD B850</li>
+                        <li data-value="AMD B450">AMD B450</li>
                     </ul>
                 </div>
             </div>
@@ -375,11 +363,10 @@
         const filters = {
             manufacturer: '',
             socket: '',
-            family: '',
-            slots: '',
-            freq_clock: '',
-            tdp: '',
-            igp: ''
+            memory: '',
+            slots: '',           
+            formfactor: '',
+            chipset: ''
         };
 
         // Инициализация при загрузке страницы
@@ -387,15 +374,54 @@
             // Используем локальные данные
             allmotherboards = [
                 {
-                    "name": "ASRock",
+                    "name": "ASRock B450M-HDV R4.0 RTL",
                     "manufacturer": "ASRock",
                     "socket": "AM4",
-                    "family": "Intel Core i5",
-                    "slots": "2",
-                    "freq_clock": "2.5",
-                    "tdp": "117",
-                    "igp": "-",
+                    "memory": "DDR4",
+                    "slots": "2",                    
+                    "form_factor": "Micro ATX",
+                    "chipset": "AMD B450",
                     "image": "images/components/motherboard/ASRock.jpg"
+                },
+                {
+                    "name": "GIGABYTE H510M K V2",
+                    "manufacturer": "GIGABYTE",
+                    "socket": "LGA1200",
+                    "memory": "DDR4",
+                    "slots": "2",
+                    "form_factor": "Micro ATX",
+                    "chipset": "Intel H470",
+                    "image": "images/components/motherboard/gigabytejpg.jpg"
+                },
+                {
+                    "name": "Asus TUF GAMING B450-PLUS II",
+                    "manufacturer": "ASUS",
+                    "socket": "AM4",
+                    "memory": "DDR4",
+                    "slots": "4",
+                    "form_factor": "ATX",
+                    "chipset": "AMD B450",
+                    "image": "images/components/motherboard/asus.jpg"
+                },
+                {
+                    "name": "MSI MAG B850 TOMAHAWK MAX WIFI",
+                    "manufacturer": "MSI",
+                    "socket": "AM5",
+                    "memory": "DDR5",
+                    "slots": "4",
+                    "form_factor": "ATX",
+                    "chipset": "AMD B850",
+                    "image": "images/components/motherboard/msi.jpg"
+                },
+                {
+                    "name": "MSI Z890 GAMING PLUS WIFI",
+                    "manufacturer": "MSI",
+                    "socket": "LGA1851",
+                    "memory": "DDR5",
+                    "slots": "4",
+                    "form_factor": "ATX",
+                    "chipset": "Intel Z890",
+                    "image": "images/components/motherboard/msigaming.jpg"
                 }
                 
             ];
@@ -452,11 +478,10 @@
         function updateFilters() {
             filters.manufacturer = document.querySelector('#manufacturerFilter .dropdown-selected').getAttribute('data-value') || '';
             filters.socket = document.querySelector('#socketFilter .dropdown-selected').getAttribute('data-value') || '';
-            filters.family = document.querySelector('#familyFilter .dropdown-selected').getAttribute('data-value') || '';
+            filters.memory = document.querySelector('#memoryFilter .dropdown-selected').getAttribute('data-value') || '';
             filters.slots = document.querySelector('#slotsFilter .dropdown-selected').getAttribute('data-value') || '';
-            filters.freq_clock = document.querySelector('#freqFilter .dropdown-selected').getAttribute('data-value') || '';
-            filters.tdp = document.querySelector('#tdpFilter .dropdown-selected').getAttribute('data-value') || '';
-            filters.igp = document.querySelector('#igpFilter .dropdown-selected').getAttribute('data-value') || '';
+            filters.form_factor = document.querySelector('#form_factorFilter .dropdown-selected').getAttribute('data-value') || '';
+            filters.chipset = document.querySelector('#chipsetFilter .dropdown-selected').getAttribute('data-value') || '';
         }
 
         // Применение фильтров
@@ -468,20 +493,18 @@
                 // Проверка сокета
                 if (filters.socket && motherboard.socket !== filters.socket) return false;
 
-                // Проверка семейства
-                if (filters.family && motherboard.family !== filters.family) return false;
+                // Проверка памяти
+                if (filters.memory && motherboard.memory !== filters.memory) return false;
 
-                // Проверка количества ядер
-                if (filters.slots && motherboard.cores !== filters.cores) return false;
+                // Проверка количества слотов
+                if (filters.slots && motherboard.slots !== filters.slots) return false;
 
-                // Проверка частоты
-                if (filters.freq_clock && motherboard.freq_clock !== filters.freq_clock) return false;
+                
+                // Проверка form_factor
+                if (filters.form_factor && motherboard.form_factor !== filters.form_factor) return false;
 
-                // Проверка TDP
-                if (filters.tdp && motherboard.tdp !== filters.tdp) return false;
-
-                // Проверка графики
-                if (filters.igp && motherboard.igp !== filters.igp) return false;
+                // Проверка чипсета
+                if (filters.chipset && motherboard.chipset !== filters.chipset) return false;
 
                 return true;
             });
@@ -536,21 +559,18 @@
                     <span class="spec-value">${motherboard.socket},</span>
                 </div>
                 <div class="spec-row">
-                    <span class="spec-name">Ядер:</span>
-                    <span class="spec-value">${motherboard.cores},</span>
+                    <span class="spec-name">Слотов:</span>
+                    <span class="spec-value">${motherboard.slots},</span>
+                </div>                
+                <div class="spec-row">
+                    <span class="spec-name">Размер:</span>
+                    <span class="spec-value">${motherboard.form_factor},</span>
                 </div>
                 <div class="spec-row">
-                    <span class="spec-name">Частота:</span>
-                    <span class="spec-value">${motherboard.freq_clock} GHz,</span>
+                    <span class="spec-name">Чипсет:</span>
+                    <span class="spec-value">${motherboard.chipset}</span>
                 </div>
-                <div class="spec-row">
-                    <span class="spec-name">TDP:</span>
-                    <span class="spec-value">${motherboard.tdp} W,</span>
-                </div>
-                <div class="spec-row">
-                    <span class="spec-name">Графика:</span>
-                    <span class="spec-value">${motherboard.igp === '+' ? 'Да' : 'Нет'}</span>
-                </div>
+                
             </div>
         `;
 
