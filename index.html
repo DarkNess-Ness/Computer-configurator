@@ -264,7 +264,7 @@
                 currentBuild: null
             };
 
-            // 2. Собираем данные о выбранных компонентах
+            // Собираем данные о выбранных компонентах
             const selectedComponents = {
                 cpu: JSON.parse(localStorage.getItem('selectedProcessor')),
                 videocard: JSON.parse(localStorage.getItem('selectedvideocard')),
@@ -277,48 +277,98 @@
                 
             };
 
-            // 3. Фильтруем пустые значения (если какие-то компоненты не выбраны)
+            // Фильтруем пустые значения (если какие-то компоненты не выбраны)
             const nonEmptyComponents = Object.fromEntries(
                 Object.entries(selectedComponents).filter(([_, value]) => value !== null)
             );
 
-            // 4. Создаем новую сборку
+            // Создаем новую сборку
             const newBuild = {
                 name: `Сборка ${userProfile.builds.length + 1}`,
                 components: nonEmptyComponents,
                 createdAt: new Date().toISOString()
             };
 
-            // 5. Добавляем сборку в профиль
+            // Добавляем сборку в профиль
             userProfile.builds.push(newBuild);
             userProfile.currentBuild = newBuild;
 
-            // 6. Сохраняем обновленный профиль
+            // Сохраняем обновленный профиль
             localStorage.setItem('userProfile', JSON.stringify(userProfile));
 
-            // 7. Показываем уведомление
-            alert('Сборка сохранена!');
+            alert(`Сборка ${userProfile.builds.length} сохранена`);
 
-            // 8. Для отладки можно вывести в консоль
-            console.log('Текущие сборки:', userProfile.builds);
+            const componentsToRemove = [
+                'selectedProcessor',
+                'selectedviedocard',
+                'selectedram',
+                'selectedmotherboard',
+                'selectedCorpus',
+                'selectedSD',
+                'selectedBlock',
+                'selectedCooler'
+            ];
+
+            componentsToRemove.forEach(key => {
+                localStorage.removeItem(key);
+            });
 
         });
         document.getElementById('breakBtn').addEventListener('click', () => {
 
+            if (confirm('Удалить текущую сборку?')) {
+                // Получаем текущий профиль пользователя
+                const userProfile = JSON.parse(localStorage.getItem('userProfile')) || {
+                    builds: [],
+                    currentBuild: null
+                };
 
-            if (confirm('Удалить сборку?')) {
+                // Удаляем текущую сборку (если она есть)
+                if (userProfile.currentBuild) {
+                    // Находим индекс текущей сборки в массиве builds
+                    const buildIndex = userProfile.builds.findIndex(
+                        build => build.name === userProfile.currentBuild.name
+                    );
 
+                    // Удаляем сборку из массива, если найдена
+                    if (buildIndex !== -1) {
+                        userProfile.builds.splice(buildIndex, 1);
+                    }
 
-                var myItem = localStorage.getItem('users');
-                localStorage.clear();
-                localStorage.setItem('users', myItem);
+                    // Сбрасываем текущую сборку
+                    userProfile.currentBuild = null;
+                }
 
+                
+                // 4. Сохраняем обновленный профиль
+                localStorage.setItem('userProfile', JSON.stringify(userProfile));
 
-
-                //localStorage.removeItem("selectedComponents");
-                //alert('Выбор сброшен!');
-                //displaySelectedComponents();
+                // 5. Обновляем интерфейс
+                alert('Текущая сборка удалена!');
+                // displaySelectedComponents(); // Раскомментируйте, если у вас есть такая функция
             }
+
+
+
+
+
+
+
+
+
+
+
+
+            //Оставить ниже, если решим удалять вообще все из LocalStorage
+            //if (confirm('Удалить сборку?')) {
+
+
+            //    var myItem = localStorage.getItem('users');
+            //    localStorage.clear();
+            //    localStorage.setItem('users', myItem);
+
+
+            //}
         });
 
 
