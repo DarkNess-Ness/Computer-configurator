@@ -274,7 +274,6 @@
                 block: JSON.parse(localStorage.getItem('selectedBlock')),
                 cooling: JSON.parse(localStorage.getItem('selectedCooler')),
                 corpus: JSON.parse(localStorage.getItem('selectedCorpus'))
-                
             };
 
             // Фильтруем пустые значения (если какие-то компоненты не выбраны)
@@ -282,9 +281,21 @@
                 Object.entries(selectedComponents).filter(([_, value]) => value !== null)
             );
 
-            // Создаем новую сборку
+            // Находим максимальный номер существующей сборки
+            let maxBuildNumber = 0;
+            userProfile.builds.forEach(build => {
+                const match = build.name.match(/Сборка (\d+)/);
+                if (match) {
+                    const num = parseInt(match[1]);
+                    if (num > maxBuildNumber) {
+                        maxBuildNumber = num;
+                    }
+                }
+            });
+
+            // Создаем новую сборку с номером на 1 больше максимального
             const newBuild = {
-                name: `Сборка ${userProfile.builds.length + 1}`,
+                name: `Сборка ${maxBuildNumber + 1}`,
                 components: nonEmptyComponents,
                 createdAt: new Date().toISOString()
             };
@@ -296,7 +307,7 @@
             // Сохраняем обновленный профиль
             localStorage.setItem('userProfile', JSON.stringify(userProfile));
 
-            alert(`Сборка ${userProfile.builds.length} сохранена`);
+            alert(`Сборка ${maxBuildNumber + 1} сохранена`);
 
             const componentsToRemove = [
                 'selectedProcessor',
