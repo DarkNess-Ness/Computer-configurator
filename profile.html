@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
@@ -322,17 +322,40 @@
     }
 
     function render() {
-      nameEl.textContent = user.firstName
-        ? user.firstName + " " + (user.lastName || "")
-        : user.username;
-      regEl.textContent = "Дата регистрации: " + (user.registered || "—");
+  // Автоустановка firstName, если его не было
+  if (!user.firstName && user.username) {
+    user.firstName = user.username;
+  }
 
-      document.getElementById("firstName").value = user.firstName || "";
-      document.getElementById("lastName").value = user.lastName || "";
-      document.getElementById("phone").value = user.phone || "";
-      document.getElementById("email").value = user.email || "";
-      avatar.src = user.avatar || "images/placeholder-people.png";
+  // Авторазбор contactInfo
+  if (user.contactInfo) {
+    if (user.contactInfo.includes("@")) {
+      user.email = user.email || user.contactInfo;
+    } else {
+      user.phone = user.phone || user.contactInfo;
     }
+  }
+
+  // Отображение имени
+  nameEl.textContent = user.firstName
+    ? user.firstName + " " + (user.lastName || "")
+    : user.username;
+
+  // Дата регистрации
+  regEl.textContent = "Дата регистрации: " + (
+    user.registeredAt
+      ? new Date(user.registeredAt).toLocaleDateString("ru-RU")
+      : "—"
+  );
+
+  // Заполнение полей
+  document.getElementById("firstName").value = user.firstName || "";
+  document.getElementById("lastName").value = user.lastName || "";
+  document.getElementById("phone").value = user.phone || "";
+  document.getElementById("email").value = user.email || "";
+  avatar.src = user.avatar || "images/placeholder-people.png";
+}
+
 
     function updateField(field, value) {
       user[field] = value;
@@ -424,5 +447,7 @@ function closePasswordModal() {
     <button class="btn-delete-confirm" onclick="deleteProfile()">Да</button>
   </div>
 </div>
+
+
 </body>
 </html>
