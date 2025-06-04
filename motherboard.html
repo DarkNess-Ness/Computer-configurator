@@ -511,7 +511,9 @@
 
             displayComponents(filtered);
         }
-
+        function isCompatible(motherboard, processor) {
+            return motherboard.socket === processor.socket;
+        }
 
         // Функция отображения карточек
         function displayComponents(motherboards) {
@@ -523,25 +525,31 @@
                 container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: #FF4C4C;">Ничего не найдено</div>';
                 return;
             }
-
+            // Получаем выбранный процессор (если есть)
+            const selectedProcessor = JSON.parse(localStorage.getItem('selectedProcessor'));
+            
             motherboards.forEach(motherboard => {
                 const card = document.createElement('div');
                 card.className = 'component-card';
 
-                // Добавляем обработчик клика на карточку
-                card.addEventListener('click', () => {
-                    // Сохраняем в Local Storage (автоматически перезаписывает предыдущее значение)
-                    localStorage.setItem('selectedmotherboard', JSON.stringify(motherboard));
 
-                    // Показываем стандартное браузерное сообщение
+                // Проверяем совместимость, если процессор уже выбран
+                const isCompatible = !selectedProcessor || motherboard.socket === selectedProcessor.socket;
+
+                card.addEventListener('click', () => {
+                    if (!isCompatible) {
+                        alert(`Ошибка совместимости!\nПлата ${motherboard.name} (сокет: ${motherboard.socket})\nне подходит к процессору ${selectedProcessor.name} (сокет: ${selectedProcessor.socket})`);
+                        return;
+                    }
+                    localStorage.setItem('selectedmotherboard', JSON.stringify(motherboard));
                     alert(`Материнская плата "${motherboard.name}" добавлена в сборку`);
                 });
 
                 // Проверка изображения
-                const imgSrc = motherboard.image || 'images/CPU.png';
+                const imgSrc = motherboard.image || 'images/motherboard.png';
                 const img = new Image();
                 img.onerror = function () {
-                    this.src = 'images/CPU.png';
+                    this.src = 'images/motherboard.png';
                 };
                 img.src = imgSrc;
                 img.className = 'component-image';
