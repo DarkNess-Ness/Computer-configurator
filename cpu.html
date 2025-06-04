@@ -521,10 +521,12 @@
             displayComponents(filtered);
         }
         
-
+        function isCompatible(processor, motherboard) {
+            return processor.socket === motherboard.socket;
+        }
+        
         // Функция отображения карточек
         function displayComponents(processors) {
-
             const container = document.getElementById('componentsContainer');
             container.innerHTML = '';
 
@@ -533,16 +535,22 @@
                 return;
             }
 
+            // Получаем выбранную материнскую плату (если есть)
+            const selectedMotherboard = JSON.parse(localStorage.getItem('selectedmotherboard'));
+
             processors.forEach(processor => {
                 const card = document.createElement('div');
                 card.className = 'component-card';
 
-                // Добавляем обработчик клика на карточку
+                // Проверяем совместимость, если материнская плата уже выбрана
+                const isCompatible = !selectedMotherboard || processor.socket === selectedMotherboard.socket;
+                // обработчик клика на карточку
                 card.addEventListener('click', () => {
-                    // Сохраняем в Local Storage (автоматически перезаписывает предыдущее значение)
+                    if (!isCompatible) {
+                        alert(`Ошибка совместимости!\nПроцессор ${processor.name} (сокет: ${processor.socket})\nне подходит к материнской плате ${selectedMotherboard.name} (сокет: ${selectedMotherboard.socket})`);
+                        return;
+                    }
                     localStorage.setItem('selectedProcessor', JSON.stringify(processor));
-
-                    // Показываем стандартное браузерное сообщение
                     alert(`Процессор "${processor.name}" добавлен в сборку`);
                 });
 
@@ -586,12 +594,9 @@
             </div>
         `;
 
-                
                 card.prepend(img);
                 container.appendChild(card);
             });
-
-
         }
     </script>
    
