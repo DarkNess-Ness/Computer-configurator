@@ -202,21 +202,21 @@
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 const phoneRegex = /^\+?[0-9]{7,15}$/;
 
-                if (contactInfo.includes("@")) {
-                // Проверяем как email
-                if (!emailRegex.test(contactInfo)) {
-                    errorBox.textContent = "Некорректный формат email!";
-                    errorBox.style.display = "block";
-                    successBox.style.display = "none";
-                    return;
-                    }
-                } else {
-                // Проверяем как телефон
+                if (/^\d+$/.test(contactInfo)) {
+                // Строка только из цифр — проверяем как телефон
                 if (!phoneRegex.test(contactInfo)) {
-                    errorBox.textContent = "Некорректный формат телефона! Допустимы только цифры и, возможно, + в начале.";
-                    errorBox.style.display = "block";
-                    successBox.style.display = "none";
-                    return;
+                errorBox.textContent = "Некорректный формат телефона! Введите от 7 до 15 цифр, возможно с + в начале.";
+                errorBox.style.display = "block";
+                successBox.style.display = "none";
+                return;
+                }
+                } else {
+                    // Содержит буквы или символы — проверяем как email
+                    if (!emailRegex.test(contactInfo)) {
+                        errorBox.textContent = "Некорректный формат email! Пример: user@example.com";
+                        errorBox.style.display = "block";
+                        successBox.style.display = "none";
+                        return;
                     }
                 }
                 
