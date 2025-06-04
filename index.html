@@ -257,14 +257,29 @@
         document.getElementById('profileBtn').addEventListener('click', function () {
             window.location.href = 'profile.html';
         });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const editIndex = localStorage.getItem('editBuildIndex');
+            const buildBtn = document.getElementById('buildBtn');
+
+            if (editIndex !== null) {
+                buildBtn.textContent = 'Обновить сборку';
+
+            } else {
+                buildBtn.textContent = 'Собрать';
+            }
+        });
+
+
         //обработчик нажатия на Сохранить
         document.getElementById('buildBtn').addEventListener('click', function () {
             const userProfile = JSON.parse(localStorage.getItem('userProfile')) || {
-                builds: [],
-               //currentBuild: null
+                builds: []
             };
+            // проверяем, редактируем ли существующую сборку
+            const editIndex = localStorage.getItem('editBuildIndex');
+            const isEditMode = editIndex !== null;
 
-            // Собираем данные о выбранных компонентах
             const selectedComponents = {
                 "Процессор": JSON.parse(localStorage.getItem('selectedProcessor')),
                 "Видеокарта": JSON.parse(localStorage.getItem('selectedvideocard')),
@@ -276,55 +291,64 @@
                 "Корпус": JSON.parse(localStorage.getItem('selectedCorpus'))
             };
 
-            // Фильтруем пустые значения (если какие-то компоненты не выбраны)
+            // фильтр пустых значений
             const nonEmptyComponents = Object.fromEntries(
                 Object.entries(selectedComponents).filter(([_, value]) => value !== null)
             );
 
-            // Находим максимальный номер существующей сборки
-            let maxBuildNumber = 0;
-            userProfile.builds.forEach(build => {
-                const match = build.name.match(/Сборка (\d+)/);
-                if (match) {
-                    const num = parseInt(match[1]);
-                    if (num > maxBuildNumber) {
-                        maxBuildNumber = num;
+            if (isEditMode) {
+                const buildIndex = parseInt(editIndex);
+                const originalBuild = userProfile.builds[buildIndex];
+
+                // Обновляем только измененные компоненты (сохраняем старые, если новые не выбраны)
+                Object.keys(originalBuild.components).forEach(key => {
+                    if (selectedComponents[key] !== null) { // Если выбран новый компонент
+                        originalBuild.components[key] = selectedComponents[key];
                     }
-                }
-            });
+                    
+                });
 
-            // Создаем новую сборку с номером на 1 больше максимального
-            const newBuild = {
-                name: `Сборка ${maxBuildNumber + 1}`,
-                components: nonEmptyComponents,
-                createdAt: new Date().toISOString()
-            };
+                // Добавляем новые компоненты, которых не было в оригинальной сборке
+                Object.entries(selectedComponents).forEach(([key, value]) => {
+                    if (value !== null && !originalBuild.components[key]) {
+                        originalBuild.components[key] = value;
+                    }
+                });
+                localStorage.setItem('userProfile', JSON.stringify(userProfile));
+                alert(`Сборка "${originalBuild.name}" обновлена`);
+            } else {
+                
+                let maxBuildNumber = 0;
+                userProfile.builds.forEach(build => {
+                    const match = build.name.match(/Сборка (\d+)/);
+                    if (match) {
+                        const num = parseInt(match[1]);
+                        if (num > maxBuildNumber) maxBuildNumber = num;
+                    }
+                });
 
-            // Добавляем сборку в профиль
-            userProfile.builds.push(newBuild);
-           // userProfile.currentBuild = newBuild;
+                const newBuild = {
+                    name: `Сборка ${maxBuildNumber + 1}`,
+                    components: nonEmptyComponents
+                };
+                userProfile.builds.push(newBuild);
+                alert(`Сборка ${maxBuildNumber + 1} сохранена`);
 
-            // Сохраняем обновленный профиль
-            localStorage.setItem('userProfile', JSON.stringify(userProfile));
+                // Сохраняем изменения
+                localStorage.setItem('userProfile', JSON.stringify(userProfile));
+                localStorage.removeItem('editBuildIndex'); 
+                const componentsToRemove = [
+                    'selectedProcessor', 'selectedvideocard', 'selectedram',
+                    'selectedmotherboard', 'selectedCorpus', 'selectedSD',
+                    'selectedBlock', 'selectedCooler'
+                ];
+                componentsToRemove.forEach(key => localStorage.removeItem(key));
+            }
 
-            alert(`Сборка ${maxBuildNumber + 1} сохранена`);
-
-            const componentsToRemove = [
-                'selectedProcessor',
-                'selectedvideocard',
-                'selectedram',
-                'selectedmotherboard',
-                'selectedCorpus',
-                'selectedSD',
-                'selectedBlock',
-                'selectedCooler'
-            ];
-
-            componentsToRemove.forEach(key => {
-                localStorage.removeItem(key);
-            });
+           
 
         });
+        //обработчик кнопки Сброс
         document.getElementById('breakBtn').addEventListener('click', () => {
 
             if (confirm('Удалить текущую сборку?')) {
@@ -343,37 +367,6 @@
                 componentsToRemove.forEach(key => {
                     localStorage.removeItem(key);
                 });
-
-
-                //// Получаем текущий профиль пользователя
-                //const userProfile = JSON.parse(localStorage.getItem('userProfile')) || {
-                //    builds: [],
-                //    currentBuild: null
-                //};
-
-                //// Удаляем текущую сборку (если она есть)
-                //if (userProfile.currentBuild) {
-                //    // Находим индекс текущей сборки в массиве builds
-                //    const buildIndex = userProfile.builds.findIndex(
-                //        build => build.name === userProfile.currentBuild.name
-                //    );
-
-                //    // Удаляем сборку из массива, если найдена
-                //    if (buildIndex !== -1) {
-                //        userProfile.builds.splice(buildIndex, 1);
-                //    }
-
-                //    // Сбрасываем текущую сборку
-                //    userProfile.currentBuild = null;
-                //}
-
-                
-                //// 4. Сохраняем обновленный профиль
-                //localStorage.setItem('userProfile', JSON.stringify(userProfile));
-
-                // 5. Обновляем интерфейс
-                alert('Текущая сборка удалена!');
-                // displaySelectedComponents(); // Раскомментируйте, если у вас есть такая функция
             }
 
         });
