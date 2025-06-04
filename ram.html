@@ -237,19 +237,6 @@
             color: white;
             font-weight: 500;
         }
-
-        .select-btn {
-            background-color: #66FCF1;
-            color: #0B0C10;
-            border: none;
-            padding: 6px 15px;
-            border-radius: 15px;
-            font-weight: 700;
-            font-size: 12px;
-            cursor: pointer;
-            margin-top: 10px;
-            float: right;
-        }
     </style>
 </head>
 <body>
@@ -369,7 +356,7 @@
 
         // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', function () {
-            // Используем локальные данные
+            
             allrams = [
                 {
                     "name": "Kingston Fury Beast Black",
@@ -423,15 +410,11 @@
                 },
                
             ];
-
-            // Инициализация фильтров
             initFilters();
 
-            // Отображение всех процессоров
             displayComponents(allrams);
         });
 
-        // Инициализация фильтров
         function initFilters() {
             // Обработчики для dropdown
             document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
@@ -527,21 +510,17 @@
             rams.forEach(ram => {
                 const card = document.createElement('div');
                 card.className = 'component-card';
-
-                // Добавляем обработчик клика на карточку
                 card.addEventListener('click', () => {
-                    // Сохраняем в Local Storage (автоматически перезаписывает предыдущее значение)
                     localStorage.setItem('selectedram', JSON.stringify(ram));
 
-                    // Показываем стандартное браузерное сообщение
                     alert(`ОЗУ "${ram.name}" добавлена в сборку`);
                 });
 
                 // Проверка изображения
-                const imgSrc = ram.image || 'images/CPU.png';
+                const imgSrc = ram.image || 'images/ram.png';
                 const img = new Image();
                 img.onerror = function () {
-                    this.src = 'images/CPU.png';
+                    this.src = 'images/ram.png';
                 };
                 img.src = imgSrc;
                 img.className = 'component-image';

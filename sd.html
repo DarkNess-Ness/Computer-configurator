@@ -324,7 +324,6 @@
 
         // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', function () {
-            // Используем локальные данные
             allSDs = [
                 {
                     "name": "Внешний диск HDD Toshiba Canvio Basics HDTB510EK3AA",
@@ -371,14 +370,10 @@
 
             ];
 
-            // Инициализация фильтров
             initFilters();
-
-            // Отображение всех процессоров
             displayComponents(allSDs);
         });
 
-        // Инициализация фильтров
         function initFilters() {
             // Обработчики для dropdown
             document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
@@ -464,20 +459,17 @@
                 const card = document.createElement('div');
                 card.className = 'component-card';
 
-                // Добавляем обработчик клика на карточку
                 card.addEventListener('click', () => {
-                    // Сохраняем в Local Storage (автоматически перезаписывает предыдущее значение)
                     localStorage.setItem('selectedSD', JSON.stringify(SD));
 
-                    // Показываем стандартное браузерное сообщение
                     alert(`Накопитель "${SD.name}" добавлен в сборку`);
                 });
 
                 // Проверка изображения
-                const imgSrc = SD.image || 'images/CPU.png';
+                const imgSrc = SD.image || 'images/жесткий диск.png';
                 const img = new Image();
                 img.onerror = function () {
-                    this.src = 'images/CPU.png';
+                    this.src = 'images/жесткий диск.png';
                 };
                 img.src = imgSrc;
                 img.className = 'component-image';

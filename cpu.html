@@ -237,20 +237,6 @@
             color: white;
             font-weight: 500;
         }
-
-        .select-btn {
-            background-color: #66FCF1;
-            color: #0B0C10;
-            border: none;
-            padding: 6px 15px;
-            border-radius: 15px;
-            font-weight: 700;
-            font-size: 12px;
-            cursor: pointer;
-            margin-top: 10px;
-            float: right;
-        }
-       
     </style>
 </head>
 <body>
@@ -432,14 +418,10 @@
                 }
             ];
 
-            // Инициализация фильтров
             initFilters();
 
-            // Отображение всех процессоров
             displayComponents(allProcessors);
         });
-
-        // Инициализация фильтров
         function initFilters() {
             // Обработчики для dropdown
             document.querySelectorAll('.custom-dropdown').forEach(dropdown => {

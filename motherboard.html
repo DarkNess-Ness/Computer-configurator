@@ -238,18 +238,7 @@
             font-weight: 500;
         }
 
-        .select-btn {
-            background-color: #66FCF1;
-            color: #0B0C10;
-            border: none;
-            padding: 6px 15px;
-            border-radius: 15px;
-            font-weight: 700;
-            font-size: 12px;
-            cursor: pointer;
-            margin-top: 10px;
-            float: right;
-        }
+        
     </style>
 </head>
 <body>
@@ -370,8 +359,7 @@
         };
 
         // Инициализация при загрузке страницы
-        document.addEventListener('DOMContentLoaded', function () {
-            // Используем локальные данные
+        document.addEventListener('DOMContentLoaded', function () {            
             allmotherboards = [
                 {
                     "name": "ASRock B450M-HDV R4.0 RTL",
@@ -437,14 +425,11 @@
                 
             ];
 
-            // Инициализация фильтров
+            
             initFilters();
-
-            // Отображение всех процессоров
             displayComponents(allmotherboards);
         });
 
-        // Инициализация фильтров
         function initFilters() {
             // Обработчики для dropdown
             document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
@@ -463,7 +448,6 @@
                         selected.setAttribute('data-value', value);
                         dropdown.classList.remove('active');
 
-                        // Обновляем фильтры и применяем их
                         updateFilters();
                         applyFilters();
                     });

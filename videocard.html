@@ -415,15 +415,9 @@
                     "image": "images/components/videocard/amd.jpg"
                 },
             ];
-
-            // Инициализация фильтров
             initFilters();
-
-            // Отображение всех процессоров
             displayComponents(allvideocards);
         });
-
-        // Инициализация фильтров
         function initFilters() {
             // Обработчики для dropdown
             document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
@@ -520,20 +514,16 @@
                 const card = document.createElement('div');
                 card.className = 'component-card';
 
-                // Добавляем обработчик клика на карточку
                 card.addEventListener('click', () => {
-                    // Сохраняем в Local Storage (автоматически перезаписывает предыдущее значение)
                     localStorage.setItem('selectedvideocard', JSON.stringify(videocard));
-
-                    // Показываем стандартное браузерное сообщение
                     alert(`Видеокарта "${videocard.name}" добавлена в сборку`);
                 });
 
                 // Проверка изображения
-                const imgSrc = videocard.image || 'images/CPU.png';
+                const imgSrc = videocard.image || 'images/пгз.png';
                 const img = new Image();
                 img.onerror = function () {
-                    this.src = 'images/CPU.png';
+                    this.src = 'images/пгз.png';
                 };
                 img.src = imgSrc;
                 img.className = 'component-image';
