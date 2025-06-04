@@ -266,14 +266,14 @@
 
             // Собираем данные о выбранных компонентах
             const selectedComponents = {
-                cpu: JSON.parse(localStorage.getItem('selectedProcessor')),
-                videocard: JSON.parse(localStorage.getItem('selectedvideocard')),
-                ram: JSON.parse(localStorage.getItem('selectedram')),
-                motherboard: JSON.parse(localStorage.getItem('selectedmotherboard')),
-                sd: JSON.parse(localStorage.getItem('selectedSD')),
-                block: JSON.parse(localStorage.getItem('selectedBlock')),
-                cooling: JSON.parse(localStorage.getItem('selectedCooler')),
-                corpus: JSON.parse(localStorage.getItem('selectedCorpus'))
+                "Процессор": JSON.parse(localStorage.getItem('selectedProcessor')),
+                "Видеокарта": JSON.parse(localStorage.getItem('selectedvideocard')),
+                "Оперативная память": JSON.parse(localStorage.getItem('selectedram')),
+                "Материнская плата": JSON.parse(localStorage.getItem('selectedmotherboard')),
+                "Накопитель": JSON.parse(localStorage.getItem('selectedSD')),
+                "Блок питания": JSON.parse(localStorage.getItem('selectedBlock')),
+                "Кулер": JSON.parse(localStorage.getItem('selectedCooler')),
+                "Корпус": JSON.parse(localStorage.getItem('selectedCorpus'))
             };
 
             // Фильтруем пустые значения (если какие-то компоненты не выбраны)
