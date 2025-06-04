@@ -229,16 +229,32 @@
                     successBox.style.display = "none";
                 }
                 else {
-                    users.push({ username, contactInfo, password, registeredAt: new Date().toISOString()});
-                    localStorage.setItem("users", JSON.stringify(users));
-                    errorBox.style.display = "none";
-                    successBox.style.display = "block";
-                     setTimeout(() => {
-                    window.location.href = "index.html";
-                    }, 1000);
-                }
-            });
+            const userId = crypto.randomUUID();
             
+            // Создаем профиль пользователя с пустым массивом сборок
+            const userProfile = {
+                builds: []
+            };
+
+            users.push({
+                userId,
+                username,
+                contactInfo,
+                password,
+                registeredAt: new Date().toISOString()
+            });
+
+            localStorage.setItem("users", JSON.stringify(users));
+            localStorage.setItem("loggedInUser", username);
+            localStorage.setItem("loggedInUserId", userId);
+            localStorage.setItem(`userProfile_${userId}`, JSON.stringify(userProfile));
+
+            successBox.style.display = "block";
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1000);
+             }       
+            }); 
         </script>
         
     </body>
