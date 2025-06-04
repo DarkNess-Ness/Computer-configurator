@@ -186,80 +186,88 @@
 
 <div class="builds-container" id="buildsContainer"></div>
 
-<script>
-  const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-  const builds = Array.isArray(profile.builds) ? profile.builds : [];
-  const buildsContainer = document.getElementById("buildsContainer");
-  const searchInput = document.getElementById("searchInput");
+<script> 
+    const userId = localStorage.getItem("loggedInUserId");
 
-  function renderBuilds() {
-  const searchTerm = document.getElementById("searchInput").value.toLowerCase();
-  const sortOrder = document.getElementById("sortSelect").value;
-
-  buildsContainer.innerHTML = "";
-
-  let filteredBuilds = builds
-    .filter(build => (build.name || "").toLowerCase().includes(searchTerm))
-    .sort((a, b) => {
-      const nameA = (a.name || '').toLowerCase();
-      const nameB = (b.name || '').toLowerCase();
-      return sortOrder === "az" ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
-    });
-
-  if (filteredBuilds.length === 0) {
-    buildsContainer.innerHTML = "<p>Сборки не найдены.</p>";
-    return;
-  }
-
-  filteredBuilds.forEach((build, index) => {
-    const card = document.createElement("div");
-    card.className = "build-card";
-
-    const components = Object.entries(build.components || {}).map(
-      ([key, val]) => `<li><b>${key}:</b> ${val.name || '—'}</li>`
-    ).join("");
-
-    card.innerHTML = `
-      <h3>${build.name || 'Без названия'}</h3>
-      <ul>${components}</ul>
-      <div class="actions">
-        <button class="btn-edit" onclick="editBuild(${index})">Редактировать</button>
-        <button class="btn-delete" onclick="deleteBuild(${index})">Удалить</button>
-      </div>
-    `;
-
-    buildsContainer.appendChild(card);
-  });
-}
-
-
-  function saveBuilds() {
-    profile.builds = builds;
-    localStorage.setItem('userProfile', JSON.stringify(profile));
-  }
-
-  function deleteBuild(index) {
-    if (confirm("Удалить сборку?")) {
-      builds.splice(index, 1);
-      saveBuilds();
-      renderBuilds(searchInput.value);
+    if (!userId) {
+        alert("Вы не авторизованы");
+        location.href = "login.html";
     }
-  }
 
-  function editBuild(index) {
-    localStorage.setItem("editBuildIndex", index);
-    profile.currentBuild = builds[index];
-    localStorage.setItem("userProfile", JSON.stringify(profile));
-    location.href = "index.html";
-  }
+    // Ключ с userId
+    const userProfileKey = `userProfile_${userId}`;
 
-  searchInput.addEventListener("input", () => {
-    renderBuilds(searchInput.value);
-  });
+    // Загружаем профиль пользователя по ключу с userId
+    const userProfile = JSON.parse(localStorage.getItem(userProfileKey)) || { builds: [] };
+    let userBuilds = userProfile.builds || [];
 
-  renderBuilds();
-  
-  document.getElementById("searchInput").addEventListener("input", renderBuilds);
-  document.getElementById("sortSelect").addEventListener("change", renderBuilds);
+    const buildsContainer = document.getElementById("buildsContainer");
+    const searchInput = document.getElementById("searchInput");
+    const sortSelect = document.getElementById("sortSelect");
 
-</script>
+    function renderBuilds() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const sortOrder = sortSelect.value;
+
+        buildsContainer.innerHTML = "";
+
+        const filteredBuilds = userBuilds
+            .filter(build => (build.name || "").toLowerCase().includes(searchTerm))
+            .sort((a, b) => {
+                const nameA = (a.name || '').toLowerCase();
+                const nameB = (b.name || '').toLowerCase();
+                return sortOrder === "az" 
+                    ? nameA.localeCompare(nameB) 
+                    : nameB.localeCompare(nameA);
+            });
+
+        if (filteredBuilds.length === 0) {
+            buildsContainer.innerHTML = "<p>Сборки не найдены.</p>";
+            return;
+        }
+
+        filteredBuilds.forEach((build, index) => {
+            const card = document.createElement("div");
+            card.className = "build-card";
+
+            const components = Object.entries(build.components || {}).map(
+                ([key, val]) => `<li><b>${key}:</b> ${val.name || '—'}</li>`
+            ).join("");
+
+            card.innerHTML = `
+                <h3>${build.name || 'Без названия'}</h3>
+                <ul>${components}</ul>
+                <div class="actions">
+                    <button class="btn-edit" onclick="editBuild(${index})">Редактировать</button>
+                    <button class="btn-delete" onclick="deleteBuild(${index})">Удалить</button>
+                </div>
+            `;
+
+            buildsContainer.appendChild(card);
+        });
+    }
+
+    function deleteBuild(index) {
+        if (confirm("Удалить сборку?")) {
+            userBuilds.splice(index, 1);
+            // Обновляем профиль в localStorage по ключу с userId
+            userProfile.builds = userBuilds;
+            localStorage.setItem(userProfileKey, JSON.stringify(userProfile));
+            renderBuilds();
+        }
+    }
+
+    function editBuild(index) {
+        const build = userBuilds[index];
+        if (!build) {
+            alert("Ошибка: сборка не найдена.");
+            return;
+        }
+
+        localStorage.setItem("editBuildIndex", index);
+        location.href = "index.html";
+    }
+    renderBuilds();
+    searchInput.addEventListener("input", renderBuilds);
+    sortSelect.addEventListener("change", renderBuilds);
+</script> 
