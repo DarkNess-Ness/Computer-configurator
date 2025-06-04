@@ -156,31 +156,34 @@
         </div>
 
         <script>
-            const form = document.getElementById("loginForm");
-            const errorBox = document.getElementById("errorBox");
+    const form = document.getElementById("loginForm");
+    const errorBox = document.getElementById("errorBox");
 
-            form.addEventListener("submit", function (e) {
-                e.preventDefault();
-                const username = document.getElementById("username").value.trim();
-                const password = document.getElementById("password").value.trim();
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-                const users = JSON.parse(localStorage.getItem("users") || "[]");
-                const user = users.find(u => u.username === username && u.password === password);
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
 
-                if (user) {
-                    errorBox.style.display = "none";
-                    localStorage.setItem("loggedInUser", username);
-                     setTimeout(() => {
-                    window.location.href = "index.html";
-                    }, 1000);
-                }
-                else {
-                    errorBox.textContent = " Неверный логин или пароль! "
-                    errorBox.style.display = "block";
-                }
-            });
-            
-        </script>
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      // Ищем пользователя по логину и паролю
+      const user = users.find(u => u.username === username && u.password === password);
+
+      if (user) {
+        errorBox.style.display = "none";
+        // Сохраняем username и уникальный userId
+        localStorage.setItem("loggedInUser", user.username);
+        localStorage.setItem("loggedInUserId", user.userId);
+
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1000);
+      } else {
+        errorBox.textContent = "Неверный логин или пароль!";
+        errorBox.style.display = "block";
+      }
+    });
+  </script>
         
     </body>
 </html>
